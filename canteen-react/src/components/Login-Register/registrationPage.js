@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "./log.css";
 
-function submitDetails(password, tempPass) {}
+function submitDetails(setShowReg) {
+  setShowReg(false);
+}
 
-export default function RegistrationPage() {
+export default function RegistrationPage({ setShowReg }) {
   const [name, setName] = useState("");
   const [rno, setRno] = useState("");
   const [email, setEmail] = useState("");
@@ -12,23 +14,33 @@ export default function RegistrationPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (
+      name.trim().length === 0 ||
+      rno.trim().length === 0 ||
+      email.trim().length === 0 ||
+      password.trim().length === 0 ||
+      tempPass.trim().length === 0
+    ) {
+      alert("Field input(s) cannot be empty");
+      return;
+    }
     if (password != tempPass) {
       alert("Passwords do not match");
-    } else {
-      submitDetails(password, tempPass);
+      return;
     }
+    submitDetails(setShowReg);
   };
 
   return (
     <>
       <div>
-        <h1>This is Registration Page !</h1>
+        <h1 className="tempHeader">This is Registration Page !</h1>
         <form>
           <div>
             <select className="inpSelect">
               <option>Student</option>
               <option>Teacher</option>
-              {/* <option>Admin</option> */}
             </select>
           </div>
           <div>
