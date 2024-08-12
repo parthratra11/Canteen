@@ -25,19 +25,22 @@ function App() {
   return (
     <div>
       <nav>
-        <button className="navBtn" onClick={handleShowReg}>
-          Registration
-        </button>
-        <button className="navBtn" onClick={handleShowLog}>
-          Login
-        </button>
+        {(reg || log) && (
+          <button className="navBtn" onClick={handleShowReg}>
+            Registration
+          </button>
+        )}
+        {(reg || log) && (
+          <button className="navBtn" onClick={handleShowLog}>
+            Login
+          </button>
+        )}
       </nav>
-      {reg && <RegistrationPage />}
-      {log && <LoginPage />}
+      {reg && <RegistrationPage setShowReg={setShowReg} />}
+      {log && <LoginPage setShowLog={setShowLog} />}
+      {!reg && !log && <HomePage />}
     </div>
   );
-
-  // return <HomePage />;
 }
 
 root.render(<App />);
