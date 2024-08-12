@@ -1,9 +1,9 @@
 import ReactDom from "react-dom/client";
-import RegistrationPage from "./components/registration";
-import LoginPage from "./components/login";
+import RegistrationPage from "./components/Login-Register/registrationPage";
+import LoginPage from "./components/Login-Register/loginPage";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState } from "react";
-// import Styles from "style-loader!css-loader?modules!./styles.css";
+import HomePage from "./components/Homepage/homepage";
 
 const container = document.getElementById("root");
 const root = ReactDom.createRoot(container);
@@ -25,13 +25,19 @@ function App() {
   return (
     <div>
       <nav>
-        <button onClick={handleShowReg}>Show Registration</button>
-        <button onClick={handleShowLog}>Show Login</button>
+        <button className="navBtn" onClick={handleShowReg}>
+          Registration
+        </button>
+        <button className="navBtn" onClick={handleShowLog}>
+          Login
+        </button>
       </nav>
       {reg && <RegistrationPage />}
       {log && <LoginPage />}
     </div>
   );
+
+  // return <HomePage />;
 }
 
 root.render(<App />);

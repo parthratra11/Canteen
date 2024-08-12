@@ -1,0 +1,46 @@
+.inpForm {
+  margin-top: 2px;
+
+  width: 500px;
+  height: 25px;
+
+  font-family: sans-serif;
+  font-size: 15px;
+}
+.inpSelect {
+  margin-bottom: 8px;
+  width: 100px;
+  height: 30px;
+
+  font-family: sans-serif;
+  font-size: 15px;
+
+  color: dimgray;
+}
+
+.navBtn {
+  width: 250px;
+  height: 25px;
+  margin: 2px;
+
+  font-size: 12px;
+  font-family: sans-serif;
+  font-weight: 600;
+
+  color: dimgray;
+}
+.submitBtn {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+
+  color: dimgray;
+}
+
+h1 {
+  font-family: sans-serif;
+}
