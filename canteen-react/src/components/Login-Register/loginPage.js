@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./log.css";
+import { useNavigate } from "react-router-dom";
 
-function submitDetails(setShowLog) {
-  setShowLog(false);
-}
+function submitDetails() {}
 
-export default function LoginPage({ setShowLog }) {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("Student");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,7 +16,13 @@ export default function LoginPage({ setShowLog }) {
       alert("Field input(s) cannot be empty");
       return;
     }
-    submitDetails(setShowLog);
+    submitDetails();
+
+    if (role === "Outlet Manager") {
+      navigate("/Outlet-Management");
+    } else {
+      navigate("/Home");
+    }
   };
 
   return (
@@ -24,10 +31,17 @@ export default function LoginPage({ setShowLog }) {
         <h1 className="tempHeader">This is Login Page !</h1>
         <form>
           <div>
-            <select className="inpSelect">
-              <option>Student</option>
-              <option>Teacher</option>
-              <option>Admin</option>
+            <select
+              className="inpSelect"
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}
+            >
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+              <option value="Admin">Admin</option>
+              <option value="Outlet Manager">Outlet Manager</option>
             </select>
           </div>
           <div>
