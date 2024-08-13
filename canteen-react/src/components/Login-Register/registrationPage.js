@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./log.css";
+import { useNavigate } from "react-router-dom";
 
 function submitDetails(setShowReg) {
   setShowReg(false);
@@ -11,6 +12,8 @@ export default function RegistrationPage({ setShowReg }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [tempPass, setTempPass] = useState("");
+  const [role, setRole] = useState("Student");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,6 +33,7 @@ export default function RegistrationPage({ setShowReg }) {
       return;
     }
     submitDetails(setShowReg);
+    navigate("/Home");
   };
 
   return (
@@ -38,9 +42,15 @@ export default function RegistrationPage({ setShowReg }) {
         <h1 className="tempHeader">This is Registration Page !</h1>
         <form>
           <div>
-            <select className="inpSelect">
-              <option>Student</option>
-              <option>Teacher</option>
+            <select
+              className="inpSelect"
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}
+            >
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
             </select>
           </div>
           <div>
