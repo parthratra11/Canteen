@@ -65,7 +65,7 @@ export default function RegistrationPage({ setShowReg }) {
           <div>
             <input
               className="inpForm"
-              type="text"
+              type="number"
               placeholder="Your College Roll No./Employee ID"
               value={rno}
               onChange={(e) => setRno(e.target.value)}
