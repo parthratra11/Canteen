@@ -2,28 +2,48 @@ import { useState } from "react";
 import "./log.css";
 import { useNavigate } from "react-router-dom";
 
-function submitDetails() {}
-
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Student");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (email.trim().length === 0 || password.trim().length === 0) {
+    if (username.trim().length === 0 || password.trim().length === 0) {
       alert("Field input(s) cannot be empty");
       return;
     }
     submitDetails();
-
-    if (role === "Outlet Manager") {
-      navigate("/Outlet-Management");
-    } else {
-      navigate("/Home");
-    }
   };
+
+  async function submitDetails() {
+    try {
+      let item = { username, password };
+      let result = await fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(item),
+      });
+
+      if (!result.ok) {
+        throw new Error(`HTTP error! status: ${result.status}`);
+      }
+
+      let data = await result.json();
+      localStorage.setItem("user-info", JSON.stringify(data));
+      console.log(data);
+
+      if (role === "Outlet Manager") {
+        navigate("/Outlet-Management");
+      } else {
+        navigate("/Home");
+      }
+    } catch (error) {
+      console.error("Error during API call:", error);
+      alert("Login failed. Please check your credentials and try again.");
+    }
+  }
 
   return (
     <>
@@ -49,8 +69,8 @@ export default function LoginPage() {
               className="inpForm"
               type="text"
               placeholder="Enter your e-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             ></input>
           </div>
 
