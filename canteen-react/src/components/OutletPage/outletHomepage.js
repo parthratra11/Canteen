@@ -9,12 +9,36 @@ function CompletedDeliveries() {
   return <div>Completed Deliveries Clicked</div>;
 }
 
+function viewItems() {
+  return <div>Items Viewed</div>;
+}
+
 function AddItems() {
-  return <div>Add Items Clicked</div>;
+  return (
+    <div>
+      <div>ID</div>
+      <form>
+        <div>
+          <input type="text" placeholder="Item Name"></input>
+        </div>
+        <div>
+          <input type="number" placeholder="Item Price"></input>
+        </div>
+        <div>
+          <input type="text" placeholder="Item Description"></input>
+        </div>
+      </form>
+      <button>Submit</button>
+    </div>
+  );
 }
 
 function UpdateItems() {
   return <div>Update Items Clicked</div>;
+}
+
+function DeleteItems() {
+  return <div>Delete Items Clicked</div>;
 }
 
 function ListOffers() {
@@ -43,7 +67,8 @@ export default function OutletHomepage() {
 
   return (
     <>
-      <h1>Outlet Page</h1>
+      <h1>Outlet Name</h1>
+
       <div className="outletNavBar">
         <button
           className="outletNavItem"
@@ -51,24 +76,42 @@ export default function OutletHomepage() {
         >
           Pending Deliveries
         </button>
+
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("CompletedDeliveries")}
         >
           Completed Deliveries
         </button>
+
+        <button
+          className="outletNavItem"
+          onClick={() => setActiveComponent("ViewItems")}
+        >
+          View Items
+        </button>
+
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("AddItems")}
         >
           Add Items
         </button>
+
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("UpdateItems")}
         >
           Update Items
         </button>
+
+        <button
+          className="outletNavItem"
+          onClick={() => setActiveComponent("DeleteItems")}
+        >
+          Delete Items
+        </button>
+
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ListOffers")}
