@@ -9,7 +9,7 @@
 }
 .inpSelect {
   margin-bottom: 8px;
-  width: 100px;
+  width: 150px;
   height: 30px;
 
   font-family: sans-serif;
@@ -31,7 +31,7 @@
 }
 .submitBtn {
   margin-top: 10px;
-  width: 100px;
+  width: 150px;
   height: 30px;
 
   font-family: sans-serif;
@@ -41,6 +41,6 @@
   color: dimgray;
 }
 
-h1 {
+.tempHeader {
   font-family: sans-serif;
 }
