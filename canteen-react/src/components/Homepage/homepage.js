@@ -1,10 +1,14 @@
 import "./homepage.css";
+import { useNavigate } from "react-router-dom";
+let user = JSON.parse(localStorage.getItem("user-info"));
 
 function NavigationBar() {
+  const navigate = useNavigate();
+
   function Greet() {
     return (
       <div className="navItem" id="greet">
-        Greet
+        Greet {user && user.username}
       </div>
     );
   }
@@ -25,10 +29,18 @@ function NavigationBar() {
       </div>
     );
   }
+
   function Logout() {
+    function handlelog() {
+      localStorage.clear();
+      navigate("/");
+    }
+
     return (
       <div className="navItem" id="logout">
-        Logout
+        <button className="logout" onClick={handlelog}>
+          logout
+        </button>
       </div>
     );
   }
