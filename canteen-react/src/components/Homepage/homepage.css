@@ -4,37 +4,34 @@
 }
 
 .navBar {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-rows: 3;
-  grid-template-columns: 2;
-  /* column-width: 100%; */
+ 
 }
 
-.navItem {
-  width: 100%;
-  background-color: bisque;
+.main{
+  width:80%;
+  background-color: aquamarine;
+}
+.rightmenue{
+  background-color: azure;
+  width: 20%;
+  text-align: center;
+  
+
+}
+.logout{
+  padding:20px;
+}
+.cart{
+  padding: 20px;
+}
+.support{
+  padding:20px;
+}
+.banner{
+  height: 100px;
+  border: 1px;
+  border-bottom: black;
 }
 
-#greet {
-  grid-area: 1/ 1 / span 1 / span 1;
-  /* width: 92%; */
-}
-#banner {
-  grid-area: 2/ 1 / span 2 / span 2;
-  font-size: 30px;
-  /* width: 92%; */
-}
-
-#supportMenu {
-  grid-area: 1/ 2 / span 1 / span 1;
-  /* width: 8%; */
-}
-#cart {
-  grid-area: 2/ 2 / span 1 / span 1;
-  /* width: 8%; */
-}
-#logout {
-  grid-area: 3/ 2 / span 1 / span 1;
-  /* width: 8%; */
-}
