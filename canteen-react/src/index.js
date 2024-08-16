@@ -24,8 +24,6 @@ function Main() {
     setShowLog(true);
   };
 
-  //! DO ROUTING
-
   return (
     <div>
       <nav>
@@ -44,10 +42,6 @@ function Main() {
       {log && <LoginPage setShowLog={setShowLog} />}
       {!reg && !log && <HomePage />}
     </div>
-
-    // <HomePage />
-
-    // <OutletHomepage />
   );
 }
 
