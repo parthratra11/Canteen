@@ -60,5 +60,5 @@ function App() {
   );
 }
 
-root.render(<App />);
-// root.render(<OutletHomepage />);
+// root.render(<App />);
+root.render(<OutletHomepage />);
