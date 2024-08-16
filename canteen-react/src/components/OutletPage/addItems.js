@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+// ! IMPLEMENT NULL FIELD ALERT
+
 export default function AddItems({
   setActiveComponent,
   products,
@@ -17,6 +19,15 @@ export default function AddItems({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (
+      itemName.trim().length === 0 ||
+      itemPrice.trim().length === 0 ||
+      itemDescription.trim().length === 0
+    ) {
+      alert("Field input(s) cannot be empty");
+      return;
+    }
     addProduct();
   };
 

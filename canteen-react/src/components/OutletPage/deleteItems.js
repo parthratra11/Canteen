@@ -39,7 +39,7 @@ export default function DeleteItems({
       </div>
     );
   }
-  // TO BE IMPLEMENTED PROPERLY
+
   function DeleteItemsConfirm() {
     const handleDltConfirm = (event) => {
       event.preventDefault();
@@ -49,7 +49,7 @@ export default function DeleteItems({
     return (
       <>
         <div className="delConfirmDiv">
-          <h4>Are you sure you want to delete the item ?</h4>
+          <h4>Are you sure you want to delete this item ?</h4>
           <button className="delConfirmBtn" onClick={handleDltConfirm}>
             Yes
           </button>

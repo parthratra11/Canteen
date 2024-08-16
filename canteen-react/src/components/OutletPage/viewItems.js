@@ -21,19 +21,23 @@ export default function ViewItems({
           </div>
         </div>
       </div>
-      {products.map((product) => (
-        <div key={product.id} className="viewItems">
-          <div className="viewItemID">{product.id}</div>
-          <div className="viewItemImage">{/*Product Image Placeholder*/}</div>
-          {/* Product Image div needs to be changed*/}
-          <div className="viewItemDetails">
-            <div>Item: {product.name}</div>
-            <div>Price: {product.price}</div>
-            <div>Description: {product.description}</div>
+      {products
+        // SLICE AND SORT NOT OF USE FOR NOW
+        .slice()
+        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10))
+        .map((product) => (
+          <div key={product.id} className="viewItems">
+            <div className="viewItemID">{product.id}</div>
+            <div className="viewItemImage">{/*Product Image Placeholder*/}</div>
+            {/* Product Image div needs to be changed*/}
+            <div className="viewItemDetails">
+              <div>Item: {product.name}</div>
+              <div>Price: {product.price}</div>
+              <div>Description: {product.description}</div>
+            </div>
           </div>
-        </div>
-      ))}
-      {/* CHANGE THEIR LAYOUT */}
+        ))}
+
       <div
         onClick={() => setActiveComponent("AddItems")}
         className="outletNavItem"
