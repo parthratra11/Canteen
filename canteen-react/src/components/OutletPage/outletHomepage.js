@@ -1,5 +1,12 @@
 import { useState } from "react";
 import "./outletHomepage.css";
+import { useNavigate } from "react-router-dom";
+import { use } from "react";
+import ViewItems from "./viewItems";
+import UpdateItems from "./updateItems";
+import AddItems from "./addItems";
+import DeleteItems from "./deleteItems";
+import ListOffers from "./listOffers";
 
 function PendingDeliveries() {
   return <div>Pending Deliveries Clicked</div>;
@@ -9,44 +16,8 @@ function CompletedDeliveries() {
   return <div>Completed Deliveries Clicked</div>;
 }
 
-function viewItems() {
-  return <div>Items Viewed</div>;
-}
-
-function AddItems() {
-  return (
-    <div>
-      <div>ID</div>
-      <form>
-        <div>
-          <input type="text" placeholder="Item Name"></input>
-        </div>
-        <div>
-          <input type="number" placeholder="Item Price"></input>
-        </div>
-        <div>
-          <input type="text" placeholder="Item Description"></input>
-        </div>
-      </form>
-      <button>Submit</button>
-    </div>
-  );
-}
-
-function UpdateItems() {
-  return <div>Update Items Clicked</div>;
-}
-
-function DeleteItems() {
-  return <div>Delete Items Clicked</div>;
-}
-
-function ListOffers() {
-  return <div>List Offers Clicked</div>;
-}
-
 export default function OutletHomepage() {
-  const [activeComponent, setActiveComponent] = useState("AddItems");
+  const [activeComponent, setActiveComponent] = useState("UpdateItems");
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -54,10 +25,14 @@ export default function OutletHomepage() {
         return <PendingDeliveries />;
       case "CompletedDeliveries":
         return <CompletedDeliveries />;
+      case "ViewItems":
+        return <ViewItems setActiveComponent={setActiveComponent} />;
       case "AddItems":
-        return <AddItems />;
+        return <AddItems setActiveComponent={setActiveComponent} />;
       case "UpdateItems":
-        return <UpdateItems />;
+        return <UpdateItems setActiveComponent={setActiveComponent} />;
+      case "DeleteItems":
+        return <DeleteItems setActiveComponent={setActiveComponent} />;
       case "ListOffers":
         return <ListOffers />;
       default:
@@ -74,49 +49,56 @@ export default function OutletHomepage() {
           className="outletNavItem"
           onClick={() => setActiveComponent("PendingDeliveries")}
         >
-          Pending Deliveries
+          <span>Pending</span>
+          <span>Deliveries</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("CompletedDeliveries")}
         >
-          Completed Deliveries
+          <span>Completed</span>
+          <span>Deliveries</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ViewItems")}
         >
-          View Items
+          <span>View</span>
+          <span>Menu</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("AddItems")}
         >
-          Add Items
+          <span>Add</span>
+          <span>Items</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("UpdateItems")}
         >
-          Update Items
+          <span>Update</span>
+          <span>Items</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("DeleteItems")}
         >
-          Delete Items
+          <span>Delete</span>
+          <span>Items</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ListOffers")}
         >
-          List Offers
+          <span>List</span>
+          <span>Offers</span>
         </button>
       </div>
       <div>{renderComponent()}</div>
