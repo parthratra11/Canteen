@@ -2,7 +2,7 @@ import "./homepage.css";
 import { useNavigate } from "react-router-dom";
 
 // debugger
-// let user = JSON.parse(localStorage.getItem("user_info"));
+let user = JSON.parse(localStorage.getItem("user_info"));
 // console.log("ppppppppppppppp");
 function NavigationBar() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function NavigationBar() {
   function Greet() {
     return (
       <div >
-        {/* Greet {user.user_info.NAME} */}
+        Greet {user.user_info.NAME}
       </div>
     );
   }

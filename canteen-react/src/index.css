@@ -1,0 +1,8 @@
+.toogle{
+    display:flex;
+    background-color: aqua;
+    /* justify-content: center; */
+}
+.logreg{
+    width:50%
+}

@@ -50,10 +50,36 @@ export default function LoginPage() {
 
   return (
     <>
-      <div>
-        <h1 className="tempHeader">This is Login Page !</h1>
+      <div className="card">
+        
         <form>
-          <div>
+          <fieldset>
+
+          <h2>Sign In</h2>
+          
+          <div className="Field">
+          <label>Email<sup>*</sup></label>
+            <input
+             
+              type="text"
+              placeholder="Enter your e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+          </div>
+
+          <div className="Field">
+            <label>Password<sup>*</sup></label>
+            <input
+             
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+          <label>Role<sup>*</sup></label>
             <select
               className="inpSelect"
               value={role}
@@ -66,30 +92,12 @@ export default function LoginPage() {
               <option value="Admin">Admin</option>
               <option value="Outlet Manager">Outlet Manager</option>
             </select>
-          </div>
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Enter your e-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </div>
-
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-          </div>
-        </form>
-        <button disabled={!email || !password} className="submitBtn" onClick={handleSubmit}>
+          </div> <button disabled={!email || !password} className="submitBtn" onClick={handleSubmit}>
           Submit
         </button>
+          </fieldset>
+        </form>
+       
       </div>
     </>
   );

@@ -43,7 +43,8 @@ export default function RegistrationPage({ setShowReg }) {
       <div className="card">
        
         <form onSubmit={handleSubmit}> 
-          <fieldset>
+          <fieldset>  
+          <h2>Sign Up</h2>
 
        
           <div className="Field">
