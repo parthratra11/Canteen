@@ -37,7 +37,11 @@ function UpdateItemsChange() {
   );
 }
 
-export default function UpdateItems({ setActiveComponent }) {
+export default function UpdateItems({
+  setActiveComponent,
+  products,
+  setProducts,
+}) {
   const [requestedProdId, setRequestedProdId] = useState("");
   const [showUpdateItems, setShowUpdateItems] = useState(false);
 
