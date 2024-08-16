@@ -2,34 +2,22 @@ import "./homepage.css";
 import { useNavigate } from "react-router-dom";
 
 // debugger
-let user = JSON.parse(localStorage.getItem("user_info"));
+// let user = JSON.parse(localStorage.getItem("user_info"));
 // console.log("ppppppppppppppp");
 function NavigationBar() {
   const navigate = useNavigate();
 
   function Greet() {
-    return (
-      <div >
-        Greet {user.user_info.NAME}
-      </div>
-    );
+    return <div>Greet</div>;
   }
   function SupportMenu() {
-    return (
-      <div >
-        Support
-      </div>
-    );
+    return <div>Support</div>;
   }
   function BruceBanner() {
     return <div>Banner</div>;
   }
   function Cart() {
-    return (
-      <div >
-        Cart
-      </div>
-    );
+    return <div>Cart</div>;
   }
 
   function Logout() {
@@ -39,7 +27,7 @@ function NavigationBar() {
     }
 
     return (
-      <div >
+      <div>
         <button className="logout" onClick={handlelog}>
           logout
         </button>
@@ -49,41 +37,28 @@ function NavigationBar() {
 
   return (
     <>
-    <div className="navBar">
-      <div className="main">
+      <div className="navBar">
+        <div className="main">
+          <div className="greet">
+            <Greet />
+          </div>
 
-        <div className="greet" >
-
-        <Greet />
+          <div className="banner">
+            <BruceBanner />
+          </div>
         </div>
-
-        <div className="banner" >
-        <BruceBanner />
-
+        <div className="rightmenue">
+          <div className="support">
+            <SupportMenu />
+          </div>
+          <div className="cart">
+            <Cart />
+          </div>
+          <div className="logout">
+            <Logout />
+          </div>
         </div>
       </div>
-      <div className="rightmenue">
-        <div className="support" > 
-        <SupportMenu />
-
-        </div>
-        <div className="cart" >
-        <Cart />
-
-        </div>
-        <div className="logout"> 
-        <Logout />
-           </div>
-      </div>
-    </div>
-    
-
-
-
-
-
-
-      
     </>
   );
 
@@ -100,7 +75,6 @@ function Menu() {
 export default function HomePage() {
   return (
     <>
-     
       <NavigationBar />
     </>
   );
