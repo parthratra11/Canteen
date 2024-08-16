@@ -87,7 +87,7 @@ export default function LoginPage() {
             ></input>
           </div>
         </form>
-        <button className="submitBtn" onClick={handleSubmit}>
+        <button disabled={!email || !password} className="submitBtn" onClick={handleSubmit}>
           Submit
         </button>
       </div>
