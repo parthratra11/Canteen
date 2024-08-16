@@ -1,11 +1,11 @@
 from flask import request
 from app import app
-from login.loginLogic import login
+from login.loginLogic import loginLogic
 
-obj = login()
+obj = loginLogic()
 
 @app.route("/login",methods = ['POST'])
-def login():
+def loginControllerFuction():
     data = request.json
     email = data.get('email')
     password = data.get('password')
