@@ -17,7 +17,7 @@ function CompletedDeliveries() {
 }
 
 export default function OutletHomepage() {
-  const [activeComponent, setActiveComponent] = useState("UpdateItems");
+  const [activeComponent, setActiveComponent] = useState("DeleteItems");
   const [products, setProducts] = useState([
     { id: 1, name: "Product 1", price: 10, description: "Description 1" },
     { id: 2, name: "Product 2", price: 20, description: "Description 2" },
