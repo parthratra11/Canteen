@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./log.css";
 import { useNavigate } from "react-router-dom";
+import "./registration.css";
 
 function submitDetails(setShowReg) {
   setShowReg(false);
@@ -13,6 +14,7 @@ export default function RegistrationPage({ setShowReg }) {
   const [password, setPassword] = useState("");
   const [tempPass, setTempPass] = useState("");
   const [role, setRole] = useState("Student");
+  const [phonenumber,setPhone]=useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -38,10 +40,80 @@ export default function RegistrationPage({ setShowReg }) {
 
   return (
     <>
-      <div>
-        <h1 className="tempHeader">This is Registration Page !</h1>
-        <form>
-          <div>
+      <div className="card">
+       
+        <form onSubmit={handleSubmit}> 
+          <fieldset>  
+          <h2>Sign Up</h2>
+
+       
+          <div className="Field">
+            <label>
+              Name <sup>*</sup>
+            </label>
+            <input
+              className="inpForm"
+              type="text"
+              placeholder="Your Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+            <label>Roll No.<sup>*</sup></label>
+            <input
+              className="inpForm"
+              type="number"
+              placeholder="Your College Roll No./Employee ID"
+              value={rno}
+              onChange={(e) => setRno(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+            <label>Email<sup>*</sup></label>
+            <input
+              className="inpForm"
+              type="text"
+              placeholder="Your e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+            <label>Phone No.<sup>*</sup></label>
+            <input
+              className="inpForm"
+              type="text"
+              placeholder="Your Phone Number"
+              value={phonenumber}
+              onChange={(e) => setPhone(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+            <label>Password<sup>*</sup></label>
+            <input
+              className="inpForm"
+              type="text"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+            <label>Confirm Password<sup>*</sup></label>
+            <input
+              className="inpForm"
+              type="text"
+              placeholder="Re-enter Password"
+              value={tempPass}
+              onChange={(e) => setTempPass(e.target.value)}
+            ></input>
+          </div>
+          
+          <div className="Field">
+          <label> 
+             Role <sup>*</sup> 
+           </label> 
             <select
               className="inpSelect"
               value={role}
@@ -53,56 +125,13 @@ export default function RegistrationPage({ setShowReg }) {
               <option value="Teacher">Teacher</option>
             </select>
           </div>
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Your Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <input
-              className="inpForm"
-              type="number"
-              placeholder="Your College Roll No./Employee ID"
-              value={rno}
-              onChange={(e) => setRno(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Your e-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </div>
-
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Confirm Password"
-              value={tempPass}
-              onChange={(e) => setTempPass(e.target.value)}
-            ></input>
-          </div>
-        </form>
-        <button className="submitBtn" onClick={handleSubmit}>
+          <button className="submitBtn" >
           Submit
-        </button>
+          </button>
+          </fieldset>
+        </form>
+
+
       </div>
     </>
   );

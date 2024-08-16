@@ -3,14 +3,14 @@ import "./log.css";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Student");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (username.trim().length === 0 || password.trim().length === 0) {
+    if (email.trim().length === 0 || password.trim().length === 0) {
       alert("Field input(s) cannot be empty");
       return;
     }
@@ -19,9 +19,10 @@ export default function LoginPage() {
 
   async function submitDetails() {
     try {
-      let item = { username, password };
-      let result = await fetch("https://dummyjson.com/auth/login", {
-        method: "POST",
+      let item = { email, password };
+      let result = await fetch("http://127.0.0.1:5000/login", {
+        method: "POST", 
+        mode:"cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(item),
       });
@@ -31,8 +32,10 @@ export default function LoginPage() {
       }
 
       let data = await result.json();
-      localStorage.setItem("user-info", JSON.stringify(data));
-      console.log(data);
+      localStorage.setItem("user_info", JSON.stringify(data));
+      console.log(data.user_info.NAME);
+      console.log(data.user_info.EMAIL);
+      console.log(data.user_info.PHONE);
 
       if (role === "Outlet Manager") {
         navigate("/Outlet-Management");
@@ -47,10 +50,36 @@ export default function LoginPage() {
 
   return (
     <>
-      <div>
-        <h1 className="tempHeader">This is Login Page !</h1>
+      <div className="card">
+        
         <form>
-          <div>
+          <fieldset>
+
+          <h2>Sign In</h2>
+          
+          <div className="Field">
+          <label>Email<sup>*</sup></label>
+            <input
+             
+              type="text"
+              placeholder="Enter your e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+          </div>
+
+          <div className="Field">
+            <label>Password<sup>*</sup></label>
+            <input
+             
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+          <label>Role<sup>*</sup></label>
             <select
               className="inpSelect"
               value={role}
@@ -63,30 +92,12 @@ export default function LoginPage() {
               <option value="Admin">Admin</option>
               <option value="Outlet Manager">Outlet Manager</option>
             </select>
-          </div>
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Enter your e-mail"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            ></input>
-          </div>
-
-          <div>
-            <input
-              className="inpForm"
-              type="text"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-          </div>
-        </form>
-        <button className="submitBtn" onClick={handleSubmit}>
+          </div> <button disabled={!email || !password} className="submitBtn" onClick={handleSubmit}>
           Submit
         </button>
+          </fieldset>
+        </form>
+       
       </div>
     </>
   );

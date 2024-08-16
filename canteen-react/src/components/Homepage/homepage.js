@@ -1,30 +1,32 @@
 import "./homepage.css";
 import { useNavigate } from "react-router-dom";
-let user = JSON.parse(localStorage.getItem("user-info"));
 
+// debugger
+let user = JSON.parse(localStorage.getItem("user_info"));
+// console.log("ppppppppppppppp");
 function NavigationBar() {
   const navigate = useNavigate();
 
   function Greet() {
     return (
-      <div className="navItem" id="greet">
-        Greet {user && user.username}
+      <div >
+        Greet {user.user_info.NAME}
       </div>
     );
   }
   function SupportMenu() {
     return (
-      <div className="navItem" id="supportMenu">
+      <div >
         Support
       </div>
     );
   }
   function BruceBanner() {
-    return <div id="banner">Banner</div>;
+    return <div>Banner</div>;
   }
   function Cart() {
     return (
-      <div className="navItem" id="cart">
+      <div >
         Cart
       </div>
     );
@@ -37,7 +39,7 @@ function NavigationBar() {
     }
 
     return (
-      <div className="navItem" id="logout">
+      <div >
         <button className="logout" onClick={handlelog}>
           logout
         </button>
@@ -47,13 +49,41 @@ function NavigationBar() {
 
   return (
     <>
-      <div className="navBar">
+    <div className="navBar">
+      <div className="main">
+
+        <div className="greet" >
+
         <Greet />
-        <SupportMenu />
+        </div>
+
+        <div className="banner" >
         <BruceBanner />
-        <Cart />
-        <Logout />
+
+        </div>
       </div>
+      <div className="rightmenue">
+        <div className="support" > 
+        <SupportMenu />
+
+        </div>
+        <div className="cart" >
+        <Cart />
+
+        </div>
+        <div className="logout"> 
+        <Logout />
+           </div>
+      </div>
+    </div>
+    
+
+
+
+
+
+
+      
     </>
   );
 
@@ -70,7 +100,7 @@ function Menu() {
 export default function HomePage() {
   return (
     <>
-      <h1 className="homeHeader">This is Homepage !</h1>
+     
       <NavigationBar />
     </>
   );

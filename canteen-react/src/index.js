@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import HomePage from "./components/Homepage/homepage";
 import OutletHomepage from "./components/outletPage/outletHomepage";
 
+
 const container = document.getElementById("root");
 const root = ReactDom.createRoot(container);
 
@@ -25,19 +26,25 @@ function Main() {
   };
 
   return (
-    <div>
-      <nav>
+    <div className="toggle">
+      
+        <div className="logreg">
         {(reg || log) && (
-          <button className="navBtn" onClick={handleShowLog}>
+                 <button className="navBtn" onClick={handleShowLog}>
             Login
           </button>
+         
         )}
+        </div>
+        <div className="logreg">
         {(reg || log) && (
-          <button className="navBtn" onClick={handleShowReg}>
+            <button className="navBtn" onClick={handleShowReg}>
             Registration
           </button>
+         
         )}
-      </nav>
+        </div>
+     
       {reg && <RegistrationPage setShowReg={setShowReg} />}
       {log && <LoginPage setShowLog={setShowLog} />}
       {!reg && !log && <HomePage />}
@@ -57,5 +64,5 @@ function App() {
   );
 }
 
-// root.render(<App />);
-root.render(<OutletHomepage />);
+root.render(<App />);
+// root.render(<OutletHomepage />);
