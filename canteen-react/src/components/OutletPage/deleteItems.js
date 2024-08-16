@@ -106,8 +106,10 @@ export default function DeleteItems({
           </div>
         </>
       )}
+
       {showDeleteItems && <DeleteItemsRender />}
       {showDeleteItems && <DeleteItemsConfirm />}
+
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("ViewItems")}

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ViewItems from "./viewItems";
-import "./outletHomepage.css";
 
 export default function UpdateItems({
   setActiveComponent,
@@ -187,9 +186,11 @@ export default function UpdateItems({
           </div>
         </>
       )}
+
       {showUpdateItems && <UpdateItemsRender />}
       {showUpdateConfirm && <UpdateItemsConfirm />}
       {showUpdateForm && <UpdateItemsForm />}
+
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("ViewItems")}

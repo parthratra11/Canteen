@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// ! IMPLEMENT NULL FIELD ALERT
-
 export default function AddItems({
   setActiveComponent,
   products,
