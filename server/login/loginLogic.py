@@ -1,12 +1,12 @@
 import mysql.connector
 from flask import jsonify
-class login():
+class loginLogic():
     def __init__(self):
         try:
             self.con = mysql.connector.connect(host="localhost",user = "root",password="12345",database = "canteen")
             self.cur = self.con.cursor(dictionary=True)
         except:
-            return jsonify({'status': 'fail', 'message': 'failed database connection'}), 401
+            return jsonify({'status': 'fail', 'message': 'database connection failed'}), 401
         
     def user(self,email,password):
         query = "SELECT * FROM user WHERE email = %s AND password = %s"
