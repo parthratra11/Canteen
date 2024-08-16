@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-export default function DeleteItems({ setActiveComponent }) {
+export default function DeleteItems({
+  setActiveComponent,
+  products,
+  setProducts,
+}) {
   const [requestedProdId, setRequestedProdId] = useState("");
   const [showDeleteItems, setShowDeleteItems] = useState(false);
 
@@ -13,7 +17,8 @@ export default function DeleteItems({ setActiveComponent }) {
   }
 
   function checkProductID() {
-    if (requestedProdId < 10) {
+    // IMPLEMENT === INSTEAD OF ==
+    if (products.some((product) => product.id == requestedProdId)) {
       setShowDeleteItems(true);
     } else {
       alert("Product doesn't exists !");
@@ -39,7 +44,11 @@ export default function DeleteItems({ setActiveComponent }) {
                   setRequestedProdId(e.target.value);
                 }}
               ></input>
-              <button className="handleConfirmDetailsBtn" type="submit">
+              <button
+                className="handleConfirmDetailsBtn"
+                type="submit"
+                onClick={handleConfirm}
+              >
                 Confirm
               </button>
             </form>

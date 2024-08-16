@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-export default function ViewItems({ setActiveComponent }) {
-  const products = [
-    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
-    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
-  ];
-
+export default function ViewItems({
+  setActiveComponent,
+  products,
+  setProducts,
+}) {
   return (
     <>
       <div className="viewItemsHeader">
