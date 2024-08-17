@@ -88,15 +88,57 @@ function Menu({ outlets, activeMenu }) {
 
   const outlet = outlets.find((outlet) => outlet.id === activeMenu);
 
-  return <div>{outlet.menu}</div>;
+  const handleOrder = (product, event) => {
+    event.preventDefault();
+    alert(`${product.id} Requested`);
+  };
+
+  return (
+    <>
+      {outlet.menu
+        .slice()
+        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10))
+        .map((product) => (
+          <div key={product.id} className="menuItems">
+            <div className="menuItemID">{product.id}</div>
+            <div className="menuItemImage">{/*Product Image Placeholder*/}</div>
+            {/* Product Image div needs to be changed*/}
+            <div className="menuItemDetails">
+              <div>Item: {product.name}</div>
+              <div>Price: {product.price}</div>
+              <div>Description: {product.description}</div>
+            </div>
+            <div
+              className="menuItemOrder"
+              onClick={(event) => {
+                handleOrder(product, event);
+              }}
+            >
+              Order
+            </div>
+          </div>
+        ))}
+    </>
+  );
 }
 
 export default function HomePage() {
+  const products1 = [
+    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
+    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
+  ];
+  const products2 = [
+    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
+    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
+    { id: 3, name: "Product 3", price: 25, description: "Description 3" },
+    { id: 4, name: "Product 4", price: 30, description: "Description 4" },
+  ];
+
   const outlets = [
-    { id: 1, name: "Outlet 1", menu: "Outlet 1 Menu" },
-    { id: 2, name: "Outlet 2", menu: "Outlet 2 Menu" },
-    { id: 3, name: "Outlet 3", menu: "Outlet 3 Menu" },
-    { id: 4, name: "Outlet 4", menu: "Outlet 4 Menu" },
+    { id: 1, name: "Outlet 1", menu: products1 },
+    { id: 2, name: "Outlet 2", menu: products2 },
+    { id: 3, name: "Outlet 3", menu: products1 },
+    { id: 4, name: "Outlet 4", menu: products2 },
   ];
 
   const [activeMenu, setActiveMenu] = useState(1);

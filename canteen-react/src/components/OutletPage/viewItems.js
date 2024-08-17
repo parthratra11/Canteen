@@ -23,7 +23,6 @@ export default function ViewItems({
         </div>
       </div>
       {products
-        // SLICE AND SORT NOT OF USE FOR NOW
         .slice()
         .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10))
         .map((product) => (
