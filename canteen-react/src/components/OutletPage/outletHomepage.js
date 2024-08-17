@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./outletHomepage.css";
+import "./outletPage.css";
 import { useNavigate } from "react-router-dom";
 import { use } from "react";
 import ViewItems from "./viewItems";
