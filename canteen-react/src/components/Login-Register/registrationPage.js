@@ -11,36 +11,42 @@ export default function RegistrationPage({ setShowReg }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [tempPass, setTempPass] = useState("");
-  const [role, setRole] = useState("Student");
+  const [role, setRole] = useState("student");
   const [phone,setPhone]=useState("");
   const navigate = useNavigate();
-  let roll=null;
-  let empid =null;
+  let roll="";
+  let empid ="";
 function submitDetails(setShowReg) {
-  if(role == "Student"){
+  if(role == "student"){
     roll=tempnum;
 
   }else{
     empid=tempnum;
   }
   async function signup() {
-    let item = {name,role,email,phone,roll,empid,password};
-    console.warn(name,role,email,phone,roll,empid,password);
-    let result = await fetch("http://127.0.0.1:5000/registration",{
-      method:"POST",
-      body:JSON.stringify(item),
-      mode:'cors',
-      headers:{
-        "Content-Type": "application/json" ,
-        "Accept": "application/json",
-      } 
-    })
+    let item = {name, role, email, phone, roll, empid, password};
+    console.warn(item);
 
-      result = await result.json();
-      localStorage.setItem("user_info", JSON.stringify(result));
-      console.warn("result",result);
     
-  }
+    let formData = new FormData();
+    for (let key in item) {
+        formData.append(key, item[key]);
+    }
+
+    let result = await fetch("http://127.0.0.1:5000/registration", {
+        method: "POST",
+        body: formData,
+        mode: 'cors',
+        headers: {
+            "Accept": "application/json",  
+        }
+    });
+
+    result = await result.json();
+    localStorage.setItem("user_info", JSON.stringify(result));
+    console.warn("result", result);
+}
+
   setShowReg(false);
   signup();
    navigate("/Home");
@@ -151,8 +157,8 @@ function submitDetails(setShowReg) {
                 setRole(e.target.value);
               }}
             >
-              <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
+              <option value="student">student</option>
+              <option value="teacher">teacher</option>
             </select>
           </div>
           <button className="submitBtn" >
