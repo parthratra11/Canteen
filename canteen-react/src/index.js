@@ -12,8 +12,8 @@ const root = ReactDom.createRoot(container);
 
 function Main() {
   const [reg, setShowReg] = useState(false);
-  const [log, setShowLog] = useState(true);
-  // const [log, setShowLog] = useState(false);
+  // const [log, setShowLog] = useState(true);
+  const [log, setShowLog] = useState(false);
 
   const handleShowReg = () => {
     setShowReg(true);
