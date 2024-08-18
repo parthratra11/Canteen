@@ -9,6 +9,7 @@ export default function ViewItems({
   return (
     <>
       <div className="viewItemsHeader">
+        {/* VIEW ITEMS HEADER */}
         <div className="viewItems">
           <div className="viewItems">
             <div className="viewItemID">Product ID</div>
@@ -22,9 +23,11 @@ export default function ViewItems({
           </div>
         </div>
       </div>
+
+      {/* DISPLAYS ALL THE ITEMS IN THE MENU */}
       {products
-        .slice()
-        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10))
+        .slice() // CREATES A COPY
+        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10)) // SORTS THE MENU ON THE BASIS OF THE ID
         .map((product) => (
           <div key={product.id} className="viewItems">
             <div className="viewItemID">{product.id}</div>
@@ -38,18 +41,23 @@ export default function ViewItems({
           </div>
         ))}
 
+      {/* ADD ITEMS BUTTON */}
       <div
         onClick={() => setActiveComponent("AddItems")}
         className="outletNavItem"
       >
         Add Items
       </div>
+
+      {/* UPDATE ITEMS BUTTON */}
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("UpdateItems")}
       >
         Update Items
       </div>
+
+      {/* DELETE ITEMS BUTTON */}
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("DeleteItems")}
