@@ -1,11 +1,13 @@
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import "./homepage.css";
 import { useNavigate } from "react-router-dom";
+import Cart from "../Cart/cart";
+import { useCart } from "../../context/cartContext";
 
 // debugger
 // let user = JSON.parse(localStorage.getItem("user_info"));
 // console.log("ppppppppppppppp");
-function NavigationBar() {
+function NavigationBar({ cartItems, setCartItems }) {
   const navigate = useNavigate();
 
   function Greet() {
@@ -17,19 +19,20 @@ function NavigationBar() {
   function BruceBanner() {
     return <div>Banner</div>;
   }
-  function Cart() {
-    return <div>Cart</div>;
+
+  function CartBtn() {
+    return <div>{`Cart (${cartItems.length})`}</div>;
   }
 
   function Logout() {
-    function handlelog() {
+    function handleLog() {
       localStorage.clear();
       navigate("/");
     }
 
     return (
       <div>
-        <button className="logout" onClick={handlelog}>
+        <button className="logout" onClick={handleLog}>
           logout
         </button>
       </div>
@@ -52,8 +55,8 @@ function NavigationBar() {
           <div className="support">
             <SupportMenu />
           </div>
-          <div className="cart">
-            <Cart />
+          <div className="cart" onClick={() => navigate("/Cart")}>
+            <CartBtn />
           </div>
           <div className="logout">
             <Logout />
@@ -82,16 +85,18 @@ function Outlets({ outlets, setActiveMenu }) {
   );
 }
 
-function Menu({ outlets, activeMenu }) {
+function Menu({ outlets, activeMenu, cartItems, setCartItems }) {
   function search() {}
   function Item() {}
 
   const outlet = outlets.find((outlet) => outlet.id === activeMenu);
 
-  const handleOrder = (product, event) => {
-    event.preventDefault();
-    alert(`${product.id} Requested`);
+  const addToCart = (product) => {
+    setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
+  // useEffect(() => {
+  //   console.log("Cart items:", cartItems);
+  // }, [cartItems]);
 
   return (
     <>
@@ -110,11 +115,12 @@ function Menu({ outlets, activeMenu }) {
             </div>
             <div
               className="menuItemOrder"
-              onClick={(event) => {
-                handleOrder(product, event);
+              onClick={() => {
+                addToCart(product);
               }}
             >
-              Order
+              <span>Add to</span>
+              <span>Cart</span>
             </div>
           </div>
         ))}
@@ -141,13 +147,19 @@ export default function HomePage() {
     { id: 4, name: "Outlet 4", menu: products2 },
   ];
 
+  const { cartItems, setCartItems } = useCart();
   const [activeMenu, setActiveMenu] = useState(1);
 
   return (
     <>
-      <NavigationBar />
+      <NavigationBar cartItems={cartItems} setCartItems={setCartItems} />
       <Outlets outlets={outlets} setActiveMenu={setActiveMenu} />
-      <Menu outlets={outlets} activeMenu={activeMenu} />
+      <Menu
+        outlets={outlets}
+        activeMenu={activeMenu}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
     </>
   );
 }
