@@ -1,26 +1,64 @@
 import { useState } from "react";
 import "./log.css";
 import { useNavigate } from "react-router-dom";
+import "./registration.css";
 
-function submitDetails(setShowReg) {
-  setShowReg(false);
-}
+
 
 export default function RegistrationPage({ setShowReg }) {
   const [name, setName] = useState("");
-  const [rno, setRno] = useState("");
+  const [tempnum, setRno] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [tempPass, setTempPass] = useState("");
-  const [role, setRole] = useState("Student");
+  const [role, setRole] = useState("student");
+  const [phone,setPhone]=useState("");
   const navigate = useNavigate();
+  let roll="";
+  let empid ="";
+function submitDetails(setShowReg) {
+  if(role == "student"){
+    roll=tempnum;
 
+  }else{
+    empid=tempnum;
+  }
+  async function signup() {
+    let item = {name, role, email, phone, roll, empid, password};
+    console.warn(item);
+
+    
+    let formData = new FormData();
+    for (let key in item) {
+        formData.append(key, item[key]);
+    }
+
+    let result = await fetch("http://127.0.0.1:5000/registration", {
+        method: "POST",
+        body: formData,
+        mode: 'cors',
+        headers: {
+            "Accept": "application/json",  
+        }
+    });
+
+    result = await result.json();
+    localStorage.setItem("user_info", JSON.stringify(result));
+    console.warn("result", result);
+}
+
+  setShowReg(false);
+  signup();
+   navigate("/Home");
+}
   const handleSubmit = (event) => {
     event.preventDefault();
+    
+
 
     if (
       name.trim().length === 0 ||
-      rno.trim().length === 0 ||
+      tempnum.trim().length === 0 ||
       email.trim().length === 0 ||
       password.trim().length === 0 ||
       tempPass.trim().length === 0
@@ -33,27 +71,22 @@ export default function RegistrationPage({ setShowReg }) {
       return;
     }
     submitDetails(setShowReg);
-    navigate("/Home");
+   
   };
 
   return (
     <>
-      <div>
-        <h1 className="tempHeader">This is Registration Page !</h1>
-        <form>
-          <div>
-            <select
-              className="inpSelect"
-              value={role}
-              onChange={(e) => {
-                setRole(e.target.value);
-              }}
-            >
-              <option value="Student">Student</option>
-              <option value="Teacher">Teacher</option>
-            </select>
-          </div>
-          <div>
+      <div className="card">
+       
+        <form onSubmit={handleSubmit}> 
+          <fieldset>  
+          <h2>Sign Up</h2>
+
+       
+          <div className="Field">
+            <label>
+              Name <sup>*</sup>
+            </label>
             <input
               className="inpForm"
               type="text"
@@ -62,16 +95,18 @@ export default function RegistrationPage({ setShowReg }) {
               onChange={(e) => setName(e.target.value)}
             ></input>
           </div>
-          <div>
+          <div className="Field">
+            <label>tempnum No.<sup>*</sup></label>
             <input
               className="inpForm"
-              type="number"
+              type="text"
               placeholder="Your College Roll No./Employee ID"
-              value={rno}
+              value={tempnum}
               onChange={(e) => setRno(e.target.value)}
             ></input>
           </div>
-          <div>
+          <div className="Field">
+            <label>Email<sup>*</sup></label>
             <input
               className="inpForm"
               type="text"
@@ -80,8 +115,18 @@ export default function RegistrationPage({ setShowReg }) {
               onChange={(e) => setEmail(e.target.value)}
             ></input>
           </div>
-
-          <div>
+          <div className="Field">
+            <label>Phone No.<sup>*</sup></label>
+            <input
+              className="inpForm"
+              type="text"
+              placeholder="Your Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            ></input>
+          </div>
+          <div className="Field">
+            <label>Password<sup>*</sup></label>
             <input
               className="inpForm"
               type="text"
@@ -90,19 +135,39 @@ export default function RegistrationPage({ setShowReg }) {
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
-          <div>
+          <div className="Field">
+            <label>Confirm Password<sup>*</sup></label>
             <input
               className="inpForm"
               type="text"
-              placeholder="Confirm Password"
+              placeholder="Re-enter Password"
               value={tempPass}
               onChange={(e) => setTempPass(e.target.value)}
             ></input>
           </div>
-        </form>
-        <button className="submitBtn" onClick={handleSubmit}>
+          
+          <div className="Field">
+          <label> 
+             Role <sup>*</sup> 
+           </label> 
+            <select
+              className="inpSelect"
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}
+            >
+              <option value="student">student</option>
+              <option value="teacher">teacher</option>
+            </select>
+          </div>
+          <button className="submitBtn" >
           Submit
-        </button>
+          </button>
+          </fieldset>
+        </form>
+
+
       </div>
     </>
   );

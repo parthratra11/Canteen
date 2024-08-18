@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./outletHomepage.css";
+import "./outletPage.css";
 import { useNavigate } from "react-router-dom";
 import { use } from "react";
 import ViewItems from "./viewItems";
@@ -18,6 +18,10 @@ function CompletedDeliveries() {
 
 export default function OutletHomepage() {
   const [activeComponent, setActiveComponent] = useState("UpdateItems");
+  const [products, setProducts] = useState([
+    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
+    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
+  ]);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -26,13 +30,37 @@ export default function OutletHomepage() {
       case "CompletedDeliveries":
         return <CompletedDeliveries />;
       case "ViewItems":
-        return <ViewItems setActiveComponent={setActiveComponent} />;
+        return (
+          <ViewItems
+            setActiveComponent={setActiveComponent}
+            products={products}
+            setProducts={setProducts}
+          />
+        );
       case "AddItems":
-        return <AddItems setActiveComponent={setActiveComponent} />;
+        return (
+          <AddItems
+            setActiveComponent={setActiveComponent}
+            products={products}
+            setProducts={setProducts}
+          />
+        );
       case "UpdateItems":
-        return <UpdateItems setActiveComponent={setActiveComponent} />;
+        return (
+          <UpdateItems
+            setActiveComponent={setActiveComponent}
+            products={products}
+            setProducts={setProducts}
+          />
+        );
       case "DeleteItems":
-        return <DeleteItems setActiveComponent={setActiveComponent} />;
+        return (
+          <DeleteItems
+            setActiveComponent={setActiveComponent}
+            products={products}
+            setProducts={setProducts}
+          />
+        );
       case "ListOffers":
         return <ListOffers />;
       default:

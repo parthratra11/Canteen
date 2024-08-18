@@ -6,13 +6,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./components/Homepage/homepage";
 import OutletHomepage from "./components/outletPage/outletHomepage";
+import Cart from "./components/Cart/cart";
+import { CartProvider } from "./context/cartContext";
+import PaymentHomepage from "./components/PaymentPage/paymentPage";
 
 const container = document.getElementById("root");
 const root = ReactDom.createRoot(container);
 
 function Main() {
   const [reg, setShowReg] = useState(false);
-  const [log, setShowLog] = useState(true);
+  // const [log, setShowLog] = useState(true);
+  const [log, setShowLog] = useState(false);
 
   const handleShowReg = () => {
     setShowReg(true);
@@ -25,19 +29,22 @@ function Main() {
   };
 
   return (
-    <div>
-      <nav>
+    <div className="toggle">
+      <div className="logreg">
         {(reg || log) && (
           <button className="navBtn" onClick={handleShowLog}>
             Login
           </button>
         )}
+      </div>
+      <div className="logreg">
         {(reg || log) && (
           <button className="navBtn" onClick={handleShowReg}>
             Registration
           </button>
         )}
-      </nav>
+      </div>
+
       {reg && <RegistrationPage setShowReg={setShowReg} />}
       {log && <LoginPage setShowLog={setShowLog} />}
       {!reg && !log && <HomePage />}
@@ -47,15 +54,19 @@ function Main() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/Home" element={<HomePage />} />
-        <Route path="/Outlet-Management" element={<OutletHomepage />} />
-      </Routes>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/Home" element={<HomePage />} />
+          <Route path="/Outlet-Management" element={<OutletHomepage />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/Payment" element={<PaymentHomepage />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 }
 
-// root.render(<App />);
-root.render(<OutletHomepage />);
+root.render(<App />);
+// root.render(<OutletHomepage />);
