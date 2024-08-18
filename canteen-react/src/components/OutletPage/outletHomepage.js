@@ -8,21 +8,26 @@ import AddItems from "./addItems";
 import DeleteItems from "./deleteItems";
 import ListOffers from "./listOffers";
 
+// TODO: DISPLAYS PENDING DELIVERIES
 function PendingDeliveries() {
   return <div>Pending Deliveries Clicked</div>;
 }
 
+// TODO: DISPLAYS COMPLETED DELIVERIES
 function CompletedDeliveries() {
   return <div>Completed Deliveries Clicked</div>;
 }
 
 export default function OutletHomepage() {
   const [activeComponent, setActiveComponent] = useState("UpdateItems");
+
+  // TEMPORARY VALUES FOR ITEMS IN THE MENU OF THE OUTLET
   const [products, setProducts] = useState([
     { id: 1, name: "Product 1", price: 10, description: "Description 1" },
     { id: 2, name: "Product 2", price: 20, description: "Description 2" },
   ]);
 
+  // RENDERS THE PAGE OF THE SELECTED FEATURE
   const renderComponent = () => {
     switch (activeComponent) {
       case "PendingDeliveries":
@@ -72,10 +77,11 @@ export default function OutletHomepage() {
     <>
       <h1>Outlet Name</h1>
 
+      {/* DISPLAYS ALL THE ACTIONS THAT CAN BE PERFORMED BY THE OUTLET-MANAGER */}
       <div className="outletNavBar">
         <button
           className="outletNavItem"
-          onClick={() => setActiveComponent("PendingDeliveries")}
+          onClick={() => setActiveComponent("PendingDeliveries")} // CHANGES THE COMPONENT TO BE DISPLAYED
         >
           <span>Pending</span>
           <span>Deliveries</span>
@@ -129,6 +135,7 @@ export default function OutletHomepage() {
           <span>Offers</span>
         </button>
       </div>
+
       <div>{renderComponent()}</div>
     </>
   );
