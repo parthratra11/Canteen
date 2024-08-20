@@ -17,8 +17,8 @@ const root = ReactDom.createRoot(container);
 function Main() {
   // THESE VARIABLES DETERMINE WHICH PAGE TO BE DISPLAYED B/W LOGIN AND REGISTRATION
   const [reg, setShowReg] = useState(false);
-  // const [log, setShowLog] = useState(true);
-  const [log, setShowLog] = useState(false);
+  const [log, setShowLog] = useState(true);
+  // const [log, setShowLog] = useState(false);
 
   // DISPLAYS REGISTRATION PAGE AND CLOSES LOGIN PAGE
   const handleShowReg = () => {
@@ -33,29 +33,29 @@ function Main() {
   };
 
   return (
-    <div className="toggle">
-      {/* LOGIN BUTTON */}
-      <div className="logreg">
-        {(reg || log) && (
-          <button className="navBtn" onClick={handleShowLog}>
-            Login
-          </button>
-        )}
+    <div
+      className="
+    main1"
+    >
+      <div className="toggle">
+        <div className="logreg">
+          {(reg || log) && (
+            <button className="navBtn" onClick={handleShowLog}>
+              Login
+            </button>
+          )}
+        </div>
+        <div className="logreg">
+          {(reg || log) && (
+            <button className="navBtn" onClick={handleShowReg}>
+              Registration
+            </button>
+          )}
+        </div>
       </div>
-      {/* REGISTRATION BUTTON */}
-      <div className="logreg">
-        {(reg || log) && (
-          <button className="navBtn" onClick={handleShowReg}>
-            Registration
-          </button>
-        )}
-      </div>
-
-      {/* DISPLAYS REGISTRATION / LOGIN PAGE */}
+      <br></br>
       {reg && <RegistrationPage setShowReg={setShowReg} />}
       {log && <LoginPage setShowLog={setShowLog} />}
-
-      {/* TEMPORARY FEATURE, UNTIL LOGIN AND REGISTRATION ARE PROPERLY IMPLEMENTED */}
       {!reg && !log && <HomePage />}
     </div>
   );
@@ -80,5 +80,5 @@ function App() {
 }
 
 // RENDERING THE FIRST PAGE TO BE DISPLAYED
-// root.render(<App />);
-root.render(<OutletHomepage />);
+root.render(<App />);
+// root.render(<OutletHomepage />);
