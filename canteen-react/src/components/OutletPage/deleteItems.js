@@ -9,16 +9,21 @@ export default function DeleteItems({
   const [showDeleteItems, setShowDeleteItems] = useState(false);
 
   function removeItem() {
-    // IMPLEMENT === INSTEAD OF ==
+    // TODO: IMPLEMENT === INSTEAD OF ==
+    // REMOVES THE ITEM FROM THE MENU
     const updatedProducts = products.filter(
       (product) => product.id != requestedProdId
     );
     setProducts(updatedProducts);
+
+    // RESTORE THE STATE VARIABLES TO DEFAULT
     setRequestedProdId("");
     setShowDeleteItems(false);
   }
 
+  // DISPLAYS THE ITEM SELECTED BY USER FOR DELETION
   function DeleteItemsRender() {
+    // FINDS THE ITEM SELECTED BY THE USER
     const foundProduct = products.find(
       (product) => product.id == requestedProdId
     );
@@ -40,6 +45,7 @@ export default function DeleteItems({
     );
   }
 
+  // CONFIRMS DELETION
   function DeleteItemsConfirm() {
     const handleDltConfirm = (event) => {
       event.preventDefault();
@@ -50,9 +56,13 @@ export default function DeleteItems({
       <>
         <div className="delConfirmDiv">
           <h4>Are you sure you want to delete this item ?</h4>
+
+          {/* DELETES ITEM ON CLICKING YES */}
           <button className="delConfirmBtn" onClick={handleDltConfirm}>
             Yes
           </button>
+
+          {/* REDIRECTS BACK TO THE DELETE-ITEM PAGE ON CLICKING NO */}
           <button
             onClick={() => {
               setShowDeleteItems(false);
@@ -67,8 +77,9 @@ export default function DeleteItems({
     );
   }
 
+  // CHECKS IF THE REQUESTED ITEM ID FOR THE ITEM TO BE DELETED, EXISTS OR NOT
   function checkProductID() {
-    // IMPLEMENT === INSTEAD OF ==
+    // TODO: IMPLEMENT === INSTEAD OF ==
     if (products.some((product) => product.id == requestedProdId)) {
       setShowDeleteItems(true);
     } else {
@@ -83,6 +94,7 @@ export default function DeleteItems({
 
   return (
     <>
+      {/* DISPLAYS THE DELETE-ITEM FORM */}
       {!showDeleteItems && (
         <>
           <div className="handleConfirmDetailsDiv">
@@ -95,6 +107,8 @@ export default function DeleteItems({
                   setRequestedProdId(e.target.value);
                 }}
               ></input>
+
+              {/* BUTTON TO SUBMIT DELETE FORM */}
               <button
                 className="handleConfirmDetailsBtn"
                 type="submit"
@@ -107,9 +121,11 @@ export default function DeleteItems({
         </>
       )}
 
+      {/* DISPLAYS ITEM-TO-BE-DELETED AND CONFIRM-DELETETION DIV, WHEN THE ITEM IS FOUND */}
       {showDeleteItems && <DeleteItemsRender />}
       {showDeleteItems && <DeleteItemsConfirm />}
 
+      {/* REDIRECTS BACK TO THE MENU */}
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("ViewItems")}

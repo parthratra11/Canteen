@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
+// TODO: UNDERSTAND THE CREATE CONTEXT LOGIC
+
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);

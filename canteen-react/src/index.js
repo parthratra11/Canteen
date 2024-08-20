@@ -10,41 +10,50 @@ import Cart from "./components/Cart/cart";
 import { CartProvider } from "./context/cartContext";
 import PaymentHomepage from "./components/PaymentPage/paymentPage";
 
+// CREATING ROOT ELEMENT
 const container = document.getElementById("root");
 const root = ReactDom.createRoot(container);
 
 function Main() {
+  // THESE VARIABLES DETERMINE WHICH PAGE TO BE DISPLAYED B/W LOGIN AND REGISTRATION
   const [reg, setShowReg] = useState(false);
-  // const [log, setShowLog] = useState(true);
-  const [log, setShowLog] = useState(false);
+  const [log, setShowLog] = useState(true);
+  // const [log, setShowLog] = useState(false);
 
+  // DISPLAYS REGISTRATION PAGE AND CLOSES LOGIN PAGE
   const handleShowReg = () => {
     setShowReg(true);
     setShowLog(false);
   };
 
+  // DISPLAYS LOGIN PAGE AND CLOSES REGISTRATION PAGE
   const handleShowLog = () => {
     setShowReg(false);
     setShowLog(true);
   };
 
   return (
-    <div className="toggle">
-      <div className="logreg">
-        {(reg || log) && (
-          <button className="navBtn" onClick={handleShowLog}>
-            Login
-          </button>
-        )}
+    <div
+      className="
+    main1"
+    >
+      <div className="toggle">
+        <div className="logreg">
+          {(reg || log) && (
+            <button className="navBtn" onClick={handleShowLog}>
+              Login
+            </button>
+          )}
+        </div>
+        <div className="logreg">
+          {(reg || log) && (
+            <button className="navBtn" onClick={handleShowReg}>
+              Registration
+            </button>
+          )}
+        </div>
       </div>
-      <div className="logreg">
-        {(reg || log) && (
-          <button className="navBtn" onClick={handleShowReg}>
-            Registration
-          </button>
-        )}
-      </div>
-
+      <br></br>
       {reg && <RegistrationPage setShowReg={setShowReg} />}
       {log && <LoginPage setShowLog={setShowLog} />}
       {!reg && !log && <HomePage />}
@@ -54,7 +63,9 @@ function Main() {
 
 function App() {
   return (
+    // TODO: CARTPROVIDER USES CART CONTEXT, LEARN ABOUT THAT
     <CartProvider>
+      {/* CREATING ROUTES TO DIFFERENT PAGES */}
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
@@ -68,5 +79,6 @@ function App() {
   );
 }
 
+// RENDERING THE FIRST PAGE TO BE DISPLAYED
 root.render(<App />);
 // root.render(<OutletHomepage />);
