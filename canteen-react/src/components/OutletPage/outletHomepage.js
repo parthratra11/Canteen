@@ -8,18 +8,31 @@ import AddItems from "./addItems";
 import DeleteItems from "./deleteItems";
 import ListOffers from "./listOffers";
 
-// TODO: DISPLAYS PENDING DELIVERIES
-function PendingDeliveries() {
-  return <div>Pending Deliveries Clicked</div>;
-}
+function Orders() {
+  // TODO: DISPLAYS PENDING DELIVERIES
+  function PendingDeliveries() {
+    return <div className="outletNavItemOrder">Pending Deliveries</div>;
+  }
 
-// TODO: DISPLAYS COMPLETED DELIVERIES
-function CompletedDeliveries() {
-  return <div>Completed Deliveries Clicked</div>;
+  // TODO: DISPLAYS COMPLETED DELIVERIES
+  function CompletedDeliveries() {
+    return <div className="outletNavItemOrder">Completed Deliveries</div>;
+  }
+
+  return (
+    <>
+      <div className="outletNavBar">
+        <PendingDeliveries />
+        <CompletedDeliveries />
+      </div>
+    </>
+  );
 }
 
 export default function OutletHomepage() {
-  const [activeComponent, setActiveComponent] = useState("UpdateItems");
+  const [activeComponent, setActiveComponent] = useState("ViewItems");
+
+  const [requestedProdId, setRequestedProdId] = useState("");
 
   // TEMPORARY VALUES FOR ITEMS IN THE MENU OF THE OUTLET
   const [products, setProducts] = useState([
@@ -30,18 +43,20 @@ export default function OutletHomepage() {
   // RENDERS THE PAGE OF THE SELECTED FEATURE
   const renderComponent = () => {
     switch (activeComponent) {
-      case "PendingDeliveries":
-        return <PendingDeliveries />;
-      case "CompletedDeliveries":
-        return <CompletedDeliveries />;
+      case "Orders":
+        return <Orders />;
+
       case "ViewItems":
         return (
           <ViewItems
             setActiveComponent={setActiveComponent}
             products={products}
             setProducts={setProducts}
+            requestedProdId={requestedProdId}
+            setRequestedProdId={setRequestedProdId}
           />
         );
+
       case "AddItems":
         return (
           <AddItems
@@ -50,24 +65,32 @@ export default function OutletHomepage() {
             setProducts={setProducts}
           />
         );
+
       case "UpdateItems":
         return (
           <UpdateItems
             setActiveComponent={setActiveComponent}
             products={products}
             setProducts={setProducts}
+            requestedProdId={requestedProdId}
+            setRequestedProdId={setRequestedProdId}
           />
         );
+
       case "DeleteItems":
         return (
           <DeleteItems
             setActiveComponent={setActiveComponent}
             products={products}
             setProducts={setProducts}
+            requestedProdId={requestedProdId}
+            setRequestedProdId={setRequestedProdId}
           />
         );
-      case "ListOffers":
-        return <ListOffers />;
+
+      // case "ListOffers":
+      //   return <ListOffers />;
+
       default:
         return null;
     }
@@ -81,59 +104,46 @@ export default function OutletHomepage() {
       <div className="outletNavBar">
         <button
           className="outletNavItem"
-          onClick={() => setActiveComponent("PendingDeliveries")} // CHANGES THE COMPONENT TO BE DISPLAYED
+          onClick={() => setActiveComponent("Orders")} // CHANGES THE COMPONENT TO BE DISPLAYED
         >
-          <span>Pending</span>
-          <span>Deliveries</span>
-        </button>
-
-        <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("CompletedDeliveries")}
-        >
-          <span>Completed</span>
-          <span>Deliveries</span>
+          <span>Orders</span>
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ViewItems")}
         >
-          <span>View</span>
-          <span>Menu</span>
+          View Menu
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("AddItems")}
         >
-          <span>Add</span>
-          <span>Items</span>
+          Add Items
         </button>
 
-        <button
+        {/* <button
           className="outletNavItem"
           onClick={() => setActiveComponent("UpdateItems")}
         >
-          <span>Update</span>
-          <span>Items</span>
+          Update Items
         </button>
 
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("DeleteItems")}
         >
-          <span>Delete</span>
-          <span>Items</span>
-        </button>
+          Delete Items
+        </button> */}
 
-        <button
+        {/* <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ListOffers")}
         >
           <span>List</span>
           <span>Offers</span>
-        </button>
+        </button> */}
       </div>
 
       <div>{renderComponent()}</div>

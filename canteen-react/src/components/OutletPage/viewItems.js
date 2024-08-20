@@ -1,26 +1,46 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UpdateItems from "./updateItems";
+import DeleteItems from "./deleteItems";
 
 export default function ViewItems({
   setActiveComponent,
   products,
   setProducts,
+  requestedProdId,
+  setRequestedProdId,
 }) {
+  function handleUpdate(prodId) {
+    setRequestedProdId(prodId);
+    setActiveComponent("UpdateItems");
+  }
+
+  function handleDelete(prodId) {
+    setRequestedProdId(prodId);
+    setActiveComponent("DeleteItems");
+    // <DeleteItems />;
+  }
+
   return (
     <>
       <div className="viewItemsHeader">
         {/* VIEW ITEMS HEADER */}
         <div className="viewItems">
-          <div className="viewItems">
-            <div className="viewItemID">Product ID</div>
-            <div className="viewItemImage">Product Image</div>
-            {/* Product Image div needs to be changed*/}
-            <div className="viewItemDetails">
-              <div>Product Name</div>
-              <div>Product Price</div>
-              <div>Product Description</div>
-            </div>
+          <div className="viewItemID">
+            <span>Product</span>
+            <span>ID</span>
           </div>
+          <div className="viewItemImage">
+            <span>Product</span>
+            <span>Image</span>
+          </div>
+          {/* Product Image div needs to be changed*/}
+          <div className="viewItemDetails">
+            <span>Product</span>
+            <span>Details</span>
+          </div>
+          <div className="viewItemUptDltHeader"></div>
+          <div className="viewItemUptDltHeader"></div>
         </div>
       </div>
 
@@ -38,6 +58,18 @@ export default function ViewItems({
               <div>Price: {product.price}</div>
               <div>Description: {product.description}</div>
             </div>
+            <div
+              className="viewItemUptDlt"
+              onClick={() => handleUpdate(product.id)}
+            >
+              Update
+            </div>
+            <div
+              className="viewItemUptDlt"
+              onClick={() => handleDelete(product.id)}
+            >
+              Delete
+            </div>
           </div>
         ))}
 
@@ -50,7 +82,7 @@ export default function ViewItems({
       </div>
 
       {/* UPDATE ITEMS BUTTON */}
-      <div
+      {/* <div
         className="outletNavItem"
         onClick={() => setActiveComponent("UpdateItems")}
       >
@@ -58,12 +90,12 @@ export default function ViewItems({
       </div>
 
       {/* DELETE ITEMS BUTTON */}
-      <div
+      {/* <div
         className="outletNavItem"
         onClick={() => setActiveComponent("DeleteItems")}
       >
         Delete Items
-      </div>
+      </div>  */}
     </>
   );
 }

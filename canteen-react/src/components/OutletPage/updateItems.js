@@ -6,11 +6,13 @@ export default function UpdateItems({
   setActiveComponent,
   products,
   setProducts,
+  requestedProdId,
+  setRequestedProdId,
 }) {
-  const [requestedProdId, setRequestedProdId] = useState("");
-  const [showUpdateItems, setShowUpdateItems] = useState(false);
-  const [showUpdateConfirm, setShowUpdateConfirm] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  // const [requestedProdId, setRequestedProdId] = useState("");
+  const [showUpdateItems, setShowUpdateItems] = useState(true);
+  // const [showUpdateConfirm, setShowUpdateConfirm] = useState(false); //! NOT REQUIRED ANYMORE
+  const [showUpdateForm, setShowUpdateForm] = useState(true);
 
   // FINDS THE ITEM TO BE UPDATED
   function UpdateItemsRender() {
@@ -26,9 +28,9 @@ export default function UpdateItems({
             <div className="viewItemID">{foundProduct.id}</div>
             <div className="viewItemImage">Product Image</div>
             <div className="viewItemDetails">
-              <div>{foundProduct.name}</div>
-              <div>{foundProduct.price}</div>
-              <div>{foundProduct.description}</div>
+              <div>{`Product Name : ${foundProduct.name}`}</div>
+              <div>{`Product Price : ${foundProduct.price}`}</div>
+              <div>{`Product Description : ${foundProduct.description}`}</div>
             </div>
           </div>
         </div>
@@ -37,38 +39,38 @@ export default function UpdateItems({
   }
 
   // DISPLAYS THE UPDATE-ITEM-VALUES FORM WHEN USER CLICKS YES
-  function UpdateItemsConfirm() {
-    const handleUptConfirm = (event) => {
-      event.preventDefault();
-      setShowUpdateConfirm(false);
-      setShowUpdateForm(true);
-    };
+  // function UpdateItemsConfirm() {
+  //   const handleUptConfirm = (event) => {
+  //     event.preventDefault();
+  //     setShowUpdateConfirm(false);
+  //     setShowUpdateForm(true);
+  //   };
 
-    return (
-      <>
-        <div className="delConfirmDiv">
-          <h4>Are you sure you want to Update this item ?</h4>
+  //   return (
+  //     <>
+  //       <div className="delConfirmDiv">
+  //         <h4>Are you sure you want to Update this item ?</h4>
 
-          {/* DISPLAYS THE UPDATE FORM */}
-          <button className="delConfirmBtn" onClick={handleUptConfirm}>
-            Yes
-          </button>
+  //         {/* DISPLAYS THE UPDATE FORM */}
+  //         <button className="delConfirmBtn" onClick={handleUptConfirm}>
+  //           Yes
+  //         </button>
 
-          {/* REDIRECTS BACK TO THE INITIAL CHECK-UPDATE-ITEM FORM WHEN USER CLICKS NO*/}
-          <button
-            onClick={() => {
-              setShowUpdateItems(false);
-              setShowUpdateConfirm(false);
-              setRequestedProdId("");
-            }}
-            className="delConfirmBtn"
-          >
-            No
-          </button>
-        </div>
-      </>
-    );
-  }
+  //         {/* REDIRECTS BACK TO THE INITIAL CHECK-UPDATE-ITEM FORM WHEN USER CLICKS NO*/}
+  //         <button
+  //           onClick={() => {
+  //             setShowUpdateItems(false);
+  //             setShowUpdateConfirm(false);
+  //             setRequestedProdId("");
+  //           }}
+  //           className="delConfirmBtn"
+  //         >
+  //           No
+  //         </button>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   function UpdateItemsForm() {
     const [updateItemName, setUpdateItemName] = useState("");
@@ -95,11 +97,6 @@ export default function UpdateItems({
       setUpdateItemName("");
       setUpdateItemPrice("");
       setUpdateItemDescription("");
-
-      // REDIRECTS BACK TO THE CHECK-UPDATE-ITEM FORM
-      setRequestedProdId("");
-      setShowUpdateForm(false);
-      setShowUpdateItems(false);
     }
 
     const handleUptSubmit = (event) => {
@@ -161,64 +158,46 @@ export default function UpdateItems({
         <button onClick={handleUptSubmit}>Submit</button>
 
         {/* REDIRECTS BACK TO THE MENU */}
-        <div
+        {/* <div
           className="outletNavItem"
           onClick={() => setActiveComponent("ViewItems")}
         >
           View Menu
-        </div>
+        </div> */}
       </div>
     );
   }
 
   // CHECKS IF THE REQUESTED ITEM TO BE UPDATED EXISTS OR NOT
-  function checkProductID() {
-    if (products.some((product) => product.id == requestedProdId)) {
-      setShowUpdateItems(true);
-      setShowUpdateConfirm(true);
-    } else {
-      alert("Product not found !");
-    }
-  }
+  // function checkProductID() {
+  //   if (products.some((product) => product.id == requestedProdId)) {
+  //     setShowUpdateItems(true);
+  //     setShowUpdateConfirm(true);
+  //   } else {
+  //     alert("Product not found !");
+  //   }
+  // }
 
-  const handleConfirm = (event) => {
-    event.preventDefault();
-    checkProductID();
-  };
+  // const handleConfirm = (event) => {
+  //   event.preventDefault();
+  //   checkProductID();
+  // };
+
+  function redirectView() {
+    setShowUpdateItems(false);
+    setShowUpdateForm(false);
+    setActiveComponent("ViewItems");
+    setRequestedProdId("");
+  }
 
   return (
     <>
-      {/* DISPLAYS CHECK-UPDATE-ITEM FORM */}
-      {!showUpdateItems && (
-        <>
-          <div className="handleConfirmDetailsDiv">
-            <form onSubmit={handleConfirm}>
-              <input
-                className="handleConfirmDetails"
-                value={requestedProdId}
-                placeholder="Enter the ID of the Product to be updated"
-                onChange={(e) => {
-                  setRequestedProdId(e.target.value);
-                }}
-              ></input>
-              <button className="handleConfirmDetailsBtn" type="submit">
-                Confirm
-              </button>
-            </form>
-          </div>
-        </>
-      )}
-
       {/* DISPLAYS THE DIFFERENT DIVs / FORMs WITH THE FLOW OF SUBMISSIONS */}
       {showUpdateItems && <UpdateItemsRender />}
-      {showUpdateConfirm && <UpdateItemsConfirm />}
       {showUpdateForm && <UpdateItemsForm />}
 
       {/* REDIRECTS BACK TO THE MENU */}
-      <div
-        className="outletNavItem"
-        onClick={() => setActiveComponent("ViewItems")}
-      >
+      <div className="outletNavItem" onClick={() => redirectView()}>
         View Menu
       </div>
     </>
