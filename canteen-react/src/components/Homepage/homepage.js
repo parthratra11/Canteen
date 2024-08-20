@@ -1,35 +1,50 @@
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import "./homepage.css";
 import { useNavigate } from "react-router-dom";
+import Cart from "../Cart/cart";
+import { useCart } from "../../context/cartContext";
 
 // debugger
 // let user = JSON.parse(localStorage.getItem("user_info"));
 // console.log("ppppppppppppppp");
-function NavigationBar() {
+function NavigationBar({ cartItems, setCartItems }) {
   const navigate = useNavigate();
 
+  // TODO: GREETS THE USER WHO IS LOGGED IN
   function Greet() {
     return <div>Greet</div>;
   }
+
+  // TODO: SUPPORT MENU FOR THE USER
   function SupportMenu() {
     return <div>Support</div>;
   }
+
+  // TODO: OFFER AND ANNOUNCEMENTS BANNER TO BE IMPLEMENTED
   function BruceBanner() {
     return <div>Banner</div>;
   }
-  function Cart() {
-    return <div>Cart</div>;
+
+  // REDIRECTS USER TO THE CART AND DISPLAYS THE NO. OF ITEMS IN CART
+  function CartBtn() {
+    return <div>{`Cart (${cartItems.length})`}</div>;
   }
 
+  // TODO: LOGS OUT THE USER
   function Logout() {
-    function handlelog() {
+    function handleLog() {
       localStorage.clear();
       navigate("/");
     }
 
     return (
+<<<<<<< HEAD
       <div
          onClick={handlelog}>
+=======
+      <div>
+        <button className="logout" onClick={handleLog}>
+>>>>>>> 1d86a1418d8804e88a28526d31c8d162817889ec
           logout
         
       </div>
@@ -39,6 +54,7 @@ function NavigationBar() {
   return (
     <>
       <div className="navBar">
+        {/* NAVIGATION BAR CONTAINS GREET, BANNER, SUPPORT-MENU, CART, LOGOUT-BUTTON */}
         <div className="main">
           <div className="greet">
             <Greet />
@@ -48,12 +64,13 @@ function NavigationBar() {
             <BruceBanner />
           </div>
         </div>
+
         <div className="rightmenue">
           <div className="support">
             <SupportMenu />
           </div>
-          <div className="cart">
-            <Cart />
+          <div className="cart" onClick={() => navigate("/Cart")}>
+            <CartBtn />
           </div>
           <div className="logout">
             <Logout />
@@ -64,6 +81,7 @@ function NavigationBar() {
   );
 }
 
+// DISPLAYS ALL THE OUTLETS TO CHOOSE FROM
 function Outlets({ outlets, setActiveMenu }) {
   return (
     <>
@@ -82,39 +100,51 @@ function Outlets({ outlets, setActiveMenu }) {
   );
 }
 
-function Menu({ outlets, activeMenu }) {
+// DISPLAYS THE MENU OF THE OUTLET CHOSEN
+function Menu({ outlets, activeMenu, cartItems, setCartItems }) {
+  // TODO: IMPLEMENT SEARCH FEATURE ON MENU
   function search() {}
-  function Item() {}
 
+  // CONDITION TO FIND THE SELECTED OUTLET
   const outlet = outlets.find((outlet) => outlet.id === activeMenu);
 
-  const handleOrder = (product, event) => {
-    event.preventDefault();
-    alert(`${product.id} Requested`);
+  // ADDS THE ITEM TO THE CART
+  const addToCart = (product) => {
+    setCartItems((prevCartItems) => [...prevCartItems, product]);
   };
+  // useEffect(() => {
+  //   console.log("Cart items:", cartItems);
+  // }, [cartItems]);
 
   return (
     <>
       {outlet.menu
-        .slice()
-        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10))
+        .slice() // CREATES A COPY OF THE OUTLET MENU
+        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10)) //SORTS THE OUTLET MENU ON THE BASIS OF THE PRODUCT ID
+
+        // DISPLAYS ALL THE MENU ITEMS
         .map((product) => (
           <div key={product.id} className="menuItems">
             <div className="menuItemID">{product.id}</div>
+
+            {/* IMPLEMENT THE PRODUCT IMAGE OPTION */}
             <div className="menuItemImage">{/*Product Image Placeholder*/}</div>
-            {/* Product Image div needs to be changed*/}
+
             <div className="menuItemDetails">
               <div>Item: {product.name}</div>
               <div>Price: {product.price}</div>
               <div>Description: {product.description}</div>
             </div>
+
+            {/* ADD TO CART BUTTON */}
             <div
               className="menuItemOrder"
-              onClick={(event) => {
-                handleOrder(product, event);
+              onClick={() => {
+                addToCart(product);
               }}
             >
-              Order
+              <span>Add to</span>
+              <span>Cart</span>
             </div>
           </div>
         ))}
@@ -123,6 +153,7 @@ function Menu({ outlets, activeMenu }) {
 }
 
 export default function HomePage() {
+  // TEMPORARY VALUES OF MENUS
   const products1 = [
     { id: 1, name: "Product 1", price: 10, description: "Description 1" },
     { id: 2, name: "Product 2", price: 20, description: "Description 2" },
@@ -134,6 +165,7 @@ export default function HomePage() {
     { id: 4, name: "Product 4", price: 30, description: "Description 4" },
   ];
 
+  // TEMPORARY LIST OF OUTLETS
   const outlets = [
     { id: 1, name: "Outlet 1", menu: products1 },
     { id: 2, name: "Outlet 2", menu: products2 },
@@ -141,13 +173,20 @@ export default function HomePage() {
     { id: 4, name: "Outlet 4", menu: products2 },
   ];
 
+  const { cartItems, setCartItems } = useCart();
   const [activeMenu, setActiveMenu] = useState(1);
 
   return (
     <>
-      <NavigationBar />
+      {/* DISPLAYS THE NAVIGATION-BAR, OUTLETS AND MENU OF THE SELECTED OUTLET */}
+      <NavigationBar cartItems={cartItems} setCartItems={setCartItems} />
       <Outlets outlets={outlets} setActiveMenu={setActiveMenu} />
-      <Menu outlets={outlets} activeMenu={activeMenu} />
+      <Menu
+        outlets={outlets}
+        activeMenu={activeMenu}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
     </>
   );
 }

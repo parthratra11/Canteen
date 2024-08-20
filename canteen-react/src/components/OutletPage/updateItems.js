@@ -11,11 +11,14 @@ export default function UpdateItems({
   const [showUpdateItems, setShowUpdateItems] = useState(false);
   const [showUpdateConfirm, setShowUpdateConfirm] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+
+  // FINDS THE ITEM TO BE UPDATED
   function UpdateItemsRender() {
     const foundProduct = products.find(
       (product) => product.id == requestedProdId
     );
 
+    // DISPLAYS THE DETAILS OF THE ITEM TO BE UPDATED
     return (
       <div className="viewItemsHeader">
         <div className="viewItems">
@@ -33,6 +36,7 @@ export default function UpdateItems({
     );
   }
 
+  // DISPLAYS THE UPDATE-ITEM-VALUES FORM WHEN USER CLICKS YES
   function UpdateItemsConfirm() {
     const handleUptConfirm = (event) => {
       event.preventDefault();
@@ -44,9 +48,13 @@ export default function UpdateItems({
       <>
         <div className="delConfirmDiv">
           <h4>Are you sure you want to Update this item ?</h4>
+
+          {/* DISPLAYS THE UPDATE FORM */}
           <button className="delConfirmBtn" onClick={handleUptConfirm}>
             Yes
           </button>
+
+          {/* REDIRECTS BACK TO THE INITIAL CHECK-UPDATE-ITEM FORM WHEN USER CLICKS NO*/}
           <button
             onClick={() => {
               setShowUpdateItems(false);
@@ -67,10 +75,11 @@ export default function UpdateItems({
     const [updateItemPrice, setUpdateItemPrice] = useState("");
     const [updateItemDescription, setUpdateItemDescription] = useState("");
 
+    // UPDATES THE SELECTED ITEM WITH THE NEW VALUES
     function updateItem() {
       setProducts((prevProducts) => {
         return prevProducts.map((product) =>
-          // IMPLEMENT === INSTEAD OF ==
+          // TODO: IMPLEMENT === INSTEAD OF ==
           product.id == requestedProdId
             ? {
                 ...product,
@@ -82,10 +91,12 @@ export default function UpdateItems({
         );
       });
 
+      // SETS THE STATE VALUES BACK TO DEFAULT
       setUpdateItemName("");
       setUpdateItemPrice("");
       setUpdateItemDescription("");
 
+      // REDIRECTS BACK TO THE CHECK-UPDATE-ITEM FORM
       setRequestedProdId("");
       setShowUpdateForm(false);
       setShowUpdateItems(false);
@@ -93,6 +104,8 @@ export default function UpdateItems({
 
     const handleUptSubmit = (event) => {
       event.preventDefault();
+
+      // CHECKS IF ALL THE FIELDS IN THE FORM HAVE VALUES OR NOT
       if (
         updateItemName.trim().length === 0 ||
         updateItemPrice.trim().length === 0 ||
@@ -101,11 +114,14 @@ export default function UpdateItems({
         alert("Field input(s) cannot be empty");
         return;
       }
+
+      // PROCEEDS FURTHER IF ALL THE CONDITIONS ARE SATISFIED
       updateItem();
     };
 
     return (
       <div>
+        {/* DISPLAYS UPDATE-ITEM-VALUES FORM */}
         <form>
           <div>
             <input
@@ -140,7 +156,11 @@ export default function UpdateItems({
             ></input>
           </div>
         </form>
+
+        {/* SUBMITS THE VALUE FOR FURTHER OPERATIONS */}
         <button onClick={handleUptSubmit}>Submit</button>
+
+        {/* REDIRECTS BACK TO THE MENU */}
         <div
           className="outletNavItem"
           onClick={() => setActiveComponent("ViewItems")}
@@ -151,6 +171,7 @@ export default function UpdateItems({
     );
   }
 
+  // CHECKS IF THE REQUESTED ITEM TO BE UPDATED EXISTS OR NOT
   function checkProductID() {
     if (products.some((product) => product.id == requestedProdId)) {
       setShowUpdateItems(true);
@@ -167,6 +188,7 @@ export default function UpdateItems({
 
   return (
     <>
+      {/* DISPLAYS CHECK-UPDATE-ITEM FORM */}
       {!showUpdateItems && (
         <>
           <div className="handleConfirmDetailsDiv">
@@ -187,10 +209,12 @@ export default function UpdateItems({
         </>
       )}
 
+      {/* DISPLAYS THE DIFFERENT DIVs / FORMs WITH THE FLOW OF SUBMISSIONS */}
       {showUpdateItems && <UpdateItemsRender />}
       {showUpdateConfirm && <UpdateItemsConfirm />}
       {showUpdateForm && <UpdateItemsForm />}
 
+      {/* REDIRECTS BACK TO THE MENU */}
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("ViewItems")}
