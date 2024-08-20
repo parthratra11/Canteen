@@ -81,21 +81,6 @@ export default function DeleteItems({
     );
   }
 
-  // CHECKS IF THE REQUESTED ITEM ID FOR THE ITEM TO BE DELETED, EXISTS OR NOT
-  // function checkProductID() {
-  //   // IMPLEMENT === INSTEAD OF ==
-  //   if (products.some((product) => product.id == requestedProdId)) {
-  //     setShowDeleteItems(true);
-  //   } else {
-  //     alert("Product not found !");
-  //   }
-  // }
-
-  // const handleConfirm = (event) => {
-  //   event.preventDefault();
-  //   checkProductID();
-  // };
-
   function redirectView() {
     setShowDeleteItems(false);
     setActiveComponent("ViewItems");
@@ -104,33 +89,6 @@ export default function DeleteItems({
 
   return (
     <>
-      {/* DISPLAYS THE DELETE-ITEM FORM */}
-      {/* {!showDeleteItems && (
-        <>
-          <div className="handleConfirmDetailsDiv">
-            <form onSubmit={handleConfirm}>
-              <input
-                className="handleConfirmDetails"
-                value={requestedProdId}
-                placeholder="Enter the ID of the Product to be Deleted"
-                onChange={(e) => {
-                  setRequestedProdId(e.target.value);
-                }}
-              ></input>
-
-              {/* BUTTON TO SUBMIT DELETE FORM */}
-      {/* <button
-                className="handleConfirmDetailsBtn"
-                type="submit"
-                onClick={handleConfirm}
-              >
-                Confirm
-              </button>
-            </form>
-          </div>
-        </>
-      )} */}
-
       {/* DISPLAYS ITEM-TO-BE-DELETED AND CONFIRM-DELETETION DIV, WHEN THE ITEM IS FOUND */}
       {showDeleteItems && <DeleteItemsRender />}
       {showDeleteItems && <DeleteItemsConfirm />}

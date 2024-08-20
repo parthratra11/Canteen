@@ -38,40 +38,6 @@ export default function UpdateItems({
     );
   }
 
-  // DISPLAYS THE UPDATE-ITEM-VALUES FORM WHEN USER CLICKS YES
-  // function UpdateItemsConfirm() {
-  //   const handleUptConfirm = (event) => {
-  //     event.preventDefault();
-  //     setShowUpdateConfirm(false);
-  //     setShowUpdateForm(true);
-  //   };
-
-  //   return (
-  //     <>
-  //       <div className="delConfirmDiv">
-  //         <h4>Are you sure you want to Update this item ?</h4>
-
-  //         {/* DISPLAYS THE UPDATE FORM */}
-  //         <button className="delConfirmBtn" onClick={handleUptConfirm}>
-  //           Yes
-  //         </button>
-
-  //         {/* REDIRECTS BACK TO THE INITIAL CHECK-UPDATE-ITEM FORM WHEN USER CLICKS NO*/}
-  //         <button
-  //           onClick={() => {
-  //             setShowUpdateItems(false);
-  //             setShowUpdateConfirm(false);
-  //             setRequestedProdId("");
-  //           }}
-  //           className="delConfirmBtn"
-  //         >
-  //           No
-  //         </button>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
   function UpdateItemsForm() {
     const [updateItemName, setUpdateItemName] = useState("");
     const [updateItemPrice, setUpdateItemPrice] = useState("");
@@ -156,32 +122,9 @@ export default function UpdateItems({
 
         {/* SUBMITS THE VALUE FOR FURTHER OPERATIONS */}
         <button onClick={handleUptSubmit}>Submit</button>
-
-        {/* REDIRECTS BACK TO THE MENU */}
-        {/* <div
-          className="outletNavItem"
-          onClick={() => setActiveComponent("ViewItems")}
-        >
-          View Menu
-        </div> */}
       </div>
     );
   }
-
-  // CHECKS IF THE REQUESTED ITEM TO BE UPDATED EXISTS OR NOT
-  // function checkProductID() {
-  //   if (products.some((product) => product.id == requestedProdId)) {
-  //     setShowUpdateItems(true);
-  //     setShowUpdateConfirm(true);
-  //   } else {
-  //     alert("Product not found !");
-  //   }
-  // }
-
-  // const handleConfirm = (event) => {
-  //   event.preventDefault();
-  //   checkProductID();
-  // };
 
   function redirectView() {
     setShowUpdateItems(false);
