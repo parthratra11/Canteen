@@ -80,22 +80,6 @@ export default function ViewItems({
       >
         Add Items
       </div>
-
-      {/* UPDATE ITEMS BUTTON */}
-      {/* <div
-        className="outletNavItem"
-        onClick={() => setActiveComponent("UpdateItems")}
-      >
-        Update Items
-      </div>
-
-      {/* DELETE ITEMS BUTTON */}
-      {/* <div
-        className="outletNavItem"
-        onClick={() => setActiveComponent("DeleteItems")}
-      >
-        Delete Items
-      </div>  */}
     </>
   );
 }

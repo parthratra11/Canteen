@@ -125,20 +125,6 @@ export default function OutletHomepage() {
 
         {/* <button
           className="outletNavItem"
-          onClick={() => setActiveComponent("UpdateItems")}
-        >
-          Update Items
-        </button>
-
-        <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("DeleteItems")}
-        >
-          Delete Items
-        </button> */}
-
-        {/* <button
-          className="outletNavItem"
           onClick={() => setActiveComponent("ListOffers")}
         >
           <span>List</span>
