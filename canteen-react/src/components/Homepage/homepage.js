@@ -28,10 +28,10 @@ function NavigationBar() {
     }
 
     return (
-      <div>
-        <button className="logout" onClick={handlelog}>
+      <div
+         onClick={handlelog}>
           logout
-        </button>
+        
       </div>
     );
   }

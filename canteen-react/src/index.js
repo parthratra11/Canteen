@@ -6,14 +6,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./components/Homepage/homepage";
 import OutletHomepage from "./components/outletPage/outletHomepage";
+import "./index.css"
 
 const container = document.getElementById("root");
 const root = ReactDom.createRoot(container);
 
 function Main() {
   const [reg, setShowReg] = useState(false);
-  // const [log, setShowLog] = useState(true);
-  const [log, setShowLog] = useState(false);
+  const [log, setShowLog] = useState(true);
+  // const [log, setShowLog] = useState(false);
 
   const handleShowReg = () => {
     setShowReg(true);
@@ -26,7 +27,10 @@ function Main() {
   };
 
   return (
-    <div className="toggle">
+    <div className="
+    main1">
+      <div className="toggle">
+
       <div className="logreg">
         {(reg || log) && (
           <button className="navBtn" onClick={handleShowLog}>
@@ -41,7 +45,8 @@ function Main() {
           </button>
         )}
       </div>
-
+        </div>
+        <br></br>
       {reg && <RegistrationPage setShowReg={setShowReg} />}
       {log && <LoginPage setShowLog={setShowLog} />}
       {!reg && !log && <HomePage />}

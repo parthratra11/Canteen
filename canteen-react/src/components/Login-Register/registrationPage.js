@@ -16,12 +16,19 @@ export default function RegistrationPage({ setShowReg }) {
   const navigate = useNavigate();
   let roll="";
   let empid ="";
+  let number="Roll";
+  if(role=="teacher"){
+    number="Employee";
+  }
 function submitDetails(setShowReg) {
   if(role == "student"){
     roll=tempnum;
 
+
+
   }else{
     empid=tempnum;
+    
   }
   async function signup() {
     let item = {name, role, email, phone, roll, empid, password};
@@ -96,7 +103,7 @@ function submitDetails(setShowReg) {
             ></input>
           </div>
           <div className="Field">
-            <label>tempnum No.<sup>*</sup></label>
+            <label>{number} No.<sup>*</sup></label>
             <input
               className="inpForm"
               type="text"
@@ -157,8 +164,8 @@ function submitDetails(setShowReg) {
                 setRole(e.target.value);
               }}
             >
-              <option value="student">student</option>
-              <option value="teacher">teacher</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
             </select>
           </div>
           <button className="submitBtn" >

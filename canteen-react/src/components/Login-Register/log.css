@@ -16,17 +16,23 @@
 }
 
 .navBtn {
-  width: 250px;
+  width: 255px;
   height: 25px;
   margin: auto;
 
   font-size: 12px;
   font-family: sans-serif;
   font-weight: 600;
-
+  
   color: dimgray;
 }
 
+.toggle{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
+}
 
 /* .tempHeader {
   font-family: sans-serif;
