@@ -17,8 +17,8 @@ const root = ReactDom.createRoot(container);
 function Main() {
   // THESE VARIABLES DETERMINE WHICH PAGE TO BE DISPLAYED B/W LOGIN AND REGISTRATION
   const [reg, setShowReg] = useState(false);
-  const [log, setShowLog] = useState(true);
-  // const [log, setShowLog] = useState(false);
+  // const [log, setShowLog] = useState(true);
+  const [log, setShowLog] = useState(false);
 
   // DISPLAYS REGISTRATION PAGE AND CLOSES LOGIN PAGE
   const handleShowReg = () => {
@@ -80,5 +80,5 @@ function App() {
 }
 
 // RENDERING THE FIRST PAGE TO BE DISPLAYED
-root.render(<App />);
-// root.render(<OutletHomepage />);
+// root.render(<App />);
+root.render(<OutletHomepage />);

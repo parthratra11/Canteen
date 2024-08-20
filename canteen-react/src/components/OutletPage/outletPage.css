@@ -22,9 +22,31 @@
   font-weight: bold;
   font-size: 12px;
 }
-/* WHY IS IT NOT WORKING ? */
+.outletNavItemOrder {
+  margin: 2px;
+  width: 100%;
+  height: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid black;
+  border-radius: 3px;
+
+  text-align: center;
+
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+}
+
 .outletNavItem:hover {
-  background-color: lightgray !important;
+  background-color: lightgray;
+}
+.outletNavItemOrder:hover {
+  background-color: lightgray;
 }
 
 .productId {
@@ -32,11 +54,15 @@
 }
 
 .viewItemsHeader {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 3px;
+  font-weight: bold;
 }
 .viewItems {
   width: 100%;
+  margin: 10px;
+
+  border: 1px solid black;
 
   display: flex;
   flex-direction: row;
@@ -45,16 +71,40 @@
 .viewItemID {
   margin: 10px;
   width: 10%;
+
+  display: flex;
+  flex-direction: column;
 }
 .viewItemImage {
   margin: 10px;
   width: 20%;
+
+  display: flex;
+  flex-direction: column;
 }
 .viewItemDetails {
   margin: 10px;
-  width: 70%;
+  width: 50%;
   display: flex;
   flex-direction: column;
+}
+.viewItemUptDltHeader {
+  margin: 10px;
+  width: 10%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.viewItemUptDlt {
+  margin: 10px;
+  width: 10%;
+
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .handleConfirmDetailsDiv {
@@ -82,4 +132,8 @@
 .delConfirmBtn {
   width: 80px;
   height: 30px;
+}
+
+.dlt {
+  border: 1px solid black;
 }
