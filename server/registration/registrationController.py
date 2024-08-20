@@ -12,7 +12,7 @@ def registerControllerFunction():
     name = data.get('name')
     role = data.get('role')
     email = data.get('email')
-    phone = data.get('phone')
+    phone = data.get('phone') 
     roll = convertNone(data.get('roll',None))
     empid = convertNone(data.get('empid',None))
     password = data.get('password')

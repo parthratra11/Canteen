@@ -1,9 +1,23 @@
 create table user
      (ID INT AUTO_INCREMENT PRIMARY KEY,
      NAME VARCHAR(30) NOT NULL,
-     ROLE VARCHAR(20) CHECK(ROLE = "STUDENT" OR ROLE = "ADMIN" OR ROLE = "TEACHER" OR ROLE = "EMPLOYEE"),
+     ROLE VARCHAR(20) CHECK(ROLE = "STUDENT" OR ROLE = "ADMIN" OR ROLE = 	"TEACHER" OR ROLE = "EMPLOYEE"),
      EMAIL VARCHAR(50) NOT NULL unique,
      PHONE VARCHAR(12),
      ROLL VARCHAR(10) UNIQUE,
      EMPID VARCHAR(10) UNIQUE,
      PASSWORD CHAR(64) NOT NULL);
+
+create table OUTLET
+    (outletID int primary key auto_increment,
+    userID int not null,
+    outletName varchar(30) not null,
+    foreign key(userID) references user(id));
+
+create table products
+    (productId int primary key auto_increment,
+    productName varchar(30) unique not null,
+    productDescription varchar(200),
+    productPrice int not null,
+    outletId int not null,
+    foreign key(outletId) references outlet(outletId));
