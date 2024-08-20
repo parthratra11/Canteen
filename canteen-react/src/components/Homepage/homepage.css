@@ -1,4 +1,4 @@
-.homeHeader {
+/* .homeHeader {
   font-size: 50px;
   font-family: sans-serif;
 }
@@ -100,4 +100,150 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  padding: 15px;
+  color: #ecf0f1;
+}
+
+.navBar .main {
+  display: flex;
+  align-items: center;
+}
+
+.navBar .rightmenue {
+  display: flex;
+  align-items: center;
+}
+
+.greet, .support, .cart, .logout {
+  margin: 0 10px;
+}
+
+.greet, .support {
+  font-size: 18px;
+}
+
+.logout button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout button:hover {
+  background-color: #c0392b;
+}
+
+.cart {
+  cursor: pointer;
+}
+
+.cart:hover {
+  color: #3498db;
+}
+
+
+.outletsNavBar {
+  display: flex;
+  justify-content: center;
+  background-color: #34495e;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.outletsNavItem {
+  color: #ecf0f1;
+  margin: 0 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.outletsNavItem:hover {
+  color: #3498db;
+}
+
+
+.menuItems {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  margin: 10px auto;
+  padding: 15px;
+  max-width: 900px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menuItemID {
+  font-size: 14px;
+  color: #95a5a6;
+}
+
+.menuItemImage {
+  width: 80px;
+  height: 80px;
+  background-color: #bdc3c7;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuItemDetails {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.menuItemDetails div {
+  margin-bottom: 5px;
+}
+
+.menuItemOrder {
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menuItemOrder:hover {
+  background-color: #2ecc71;
+}
+
+
+footer {
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+.logout{
+  cursor: pointer;
+}
+.logout:hover {
+  color: #3498db;
 }

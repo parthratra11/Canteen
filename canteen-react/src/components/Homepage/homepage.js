@@ -12,7 +12,7 @@ function NavigationBar({ cartItems, setCartItems }) {
 
   // TODO: GREETS THE USER WHO IS LOGGED IN
   function Greet() {
-    return <div>Greet</div>;
+    return <div>Greetings User </div>;
   }
 
   // TODO: SUPPORT MENU FOR THE USER
@@ -22,26 +22,26 @@ function NavigationBar({ cartItems, setCartItems }) {
 
   // TODO: OFFER AND ANNOUNCEMENTS BANNER TO BE IMPLEMENTED
   function BruceBanner() {
-    return <div>Banner</div>;
+    return <div>
+      {/* Banner */}
+      </div>;
   }
 
   // REDIRECTS USER TO THE CART AND DISPLAYS THE NO. OF ITEMS IN CART
   function CartBtn() {
     return <div>{`Cart (${cartItems.length})`}</div>;
   }
-
+  function handleLog() {
+    localStorage.clear();
+    navigate("/");
+  }
   // TODO: LOGS OUT THE USER
   function Logout() {
-    function handleLog() {
-      localStorage.clear();
-      navigate("/");
-    }
+    
 
     return (
       <div>
-        <button className="logout" onClick={handleLog}>
-          logout
-        </button>
+       Log Out
       </div>
     );
   }
@@ -67,7 +67,7 @@ function NavigationBar({ cartItems, setCartItems }) {
           <div className="cart" onClick={() => navigate("/Cart")}>
             <CartBtn />
           </div>
-          <div className="logout">
+          <div className="logout" onClick={handleLog}>
             <Logout />
           </div>
         </div>
@@ -138,7 +138,7 @@ function Menu({ outlets, activeMenu, cartItems, setCartItems }) {
                 addToCart(product);
               }}
             >
-              <span>Add to</span>
+              <span>Add to </span>
               <span>Cart</span>
             </div>
           </div>

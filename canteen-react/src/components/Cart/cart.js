@@ -15,7 +15,7 @@ export default function Cart() {
 
   return (
     <>
-      <h1>This is Cart</h1>
+      <h1>CART</h1>
       {/* DIPLAYS THE CART ITEMS IF THERE IS SOMETHING IN THE CART */}
       {cartItems.length > 0 ? (
         <div>
@@ -40,9 +40,9 @@ export default function Cart() {
                   removeFromCart(index);
                 }}
               >
-                <span>Remove</span>
-                <span>from</span>
-                <span>Cart</span>
+                <span>Remove </span>
+                <span>from </span>
+                <span>Cart </span>
               </div>
             </div>
           ))}
@@ -58,7 +58,7 @@ export default function Cart() {
       ) : (
         // IF THE CART IS EMPTY, A MESSAGE IS DISPLAYED
         <>
-          <div>No Items in Cart</div>
+          <div className="noItemsMessage">No Items in Cart</div>
           {/* REDIRECTS BACK TO THE HOMEPAGE */}
           <div className="cartNavigation" onClick={() => navigate("/Home")}>
             Return to Homepage
