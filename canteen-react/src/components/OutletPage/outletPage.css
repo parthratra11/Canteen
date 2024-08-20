@@ -33,6 +33,7 @@
 
 .viewItemsHeader {
   border: 1px solid black;
+  border-radius: 3px;
 }
 .viewItems {
   width: 100%;
@@ -73,4 +74,12 @@
   width: 20%;
   height: 31px;
   display: inline-block;
+}
+
+.delConfirmDiv {
+  margin-bottom: 20px;
+}
+.delConfirmBtn {
+  width: 80px;
+  height: 30px;
 }

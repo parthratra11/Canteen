@@ -1,22 +1,78 @@
 import { useState } from "react";
 
-export default function DeleteItems({ setActiveComponent }) {
+export default function DeleteItems({
+  setActiveComponent,
+  products,
+  setProducts,
+}) {
   const [requestedProdId, setRequestedProdId] = useState("");
   const [showDeleteItems, setShowDeleteItems] = useState(false);
 
-  function DeleteItemsRender() {
-    return <div>Found the Product</div>;
+  function removeItem() {
+    // IMPLEMENT === INSTEAD OF ==
+    const updatedProducts = products.filter(
+      (product) => product.id != requestedProdId
+    );
+    setProducts(updatedProducts);
+    setRequestedProdId("");
+    setShowDeleteItems(false);
   }
-  // TO BE IMPLEMENTED PROPERLY
+
+  function DeleteItemsRender() {
+    const foundProduct = products.find(
+      (product) => product.id == requestedProdId
+    );
+
+    return (
+      <div className="viewItemsHeader">
+        <div className="viewItems">
+          <div className="viewItems">
+            <div className="viewItemID">{foundProduct.id}</div>
+            <div className="viewItemImage">Product Image</div>
+            <div className="viewItemDetails">
+              <div>{foundProduct.name}</div>
+              <div>{foundProduct.price}</div>
+              <div>{foundProduct.description}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function DeleteItemsConfirm() {
-    return <div>Confirmation div</div>;
+    const handleDltConfirm = (event) => {
+      event.preventDefault();
+      removeItem();
+    };
+
+    return (
+      <>
+        <div className="delConfirmDiv">
+          <h4>Are you sure you want to delete this item ?</h4>
+          <button className="delConfirmBtn" onClick={handleDltConfirm}>
+            Yes
+          </button>
+          <button
+            onClick={() => {
+              setShowDeleteItems(false);
+              setRequestedProdId("");
+            }}
+            className="delConfirmBtn"
+          >
+            No
+          </button>
+        </div>
+      </>
+    );
   }
 
   function checkProductID() {
-    if (requestedProdId < 10) {
+    // IMPLEMENT === INSTEAD OF ==
+    if (products.some((product) => product.id == requestedProdId)) {
       setShowDeleteItems(true);
     } else {
-      alert("Product doesn't exists !");
+      alert("Product not found !");
     }
   }
 
@@ -39,15 +95,21 @@ export default function DeleteItems({ setActiveComponent }) {
                   setRequestedProdId(e.target.value);
                 }}
               ></input>
-              <button className="handleConfirmDetailsBtn" type="submit">
+              <button
+                className="handleConfirmDetailsBtn"
+                type="submit"
+                onClick={handleConfirm}
+              >
                 Confirm
               </button>
             </form>
           </div>
         </>
       )}
+
       {showDeleteItems && <DeleteItemsRender />}
       {showDeleteItems && <DeleteItemsConfirm />}
+
       <div
         className="outletNavItem"
         onClick={() => setActiveComponent("ViewItems")}

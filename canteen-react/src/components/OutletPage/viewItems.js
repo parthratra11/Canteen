@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-export default function ViewItems({ setActiveComponent }) {
-  const products = [
-    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
-    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
-  ];
 
+export default function ViewItems({
+  setActiveComponent,
+  products,
+  setProducts,
+}) {
   return (
     <>
       <div className="viewItemsHeader">
@@ -22,19 +22,22 @@ export default function ViewItems({ setActiveComponent }) {
           </div>
         </div>
       </div>
-      {products.map((product) => (
-        <div key={product.id} className="viewItems">
-          <div className="viewItemID">{product.id}</div>
-          <div className="viewItemImage">{/*Product Image Placeholder*/}</div>
-          {/* Product Image div needs to be changed*/}
-          <div className="viewItemDetails">
-            <div>Item: {product.name}</div>
-            <div>Price: {product.price}</div>
-            <div>Description: {product.description}</div>
+      {products
+        .slice()
+        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10))
+        .map((product) => (
+          <div key={product.id} className="viewItems">
+            <div className="viewItemID">{product.id}</div>
+            <div className="viewItemImage">{/*Product Image Placeholder*/}</div>
+            {/* Product Image div needs to be changed*/}
+            <div className="viewItemDetails">
+              <div>Item: {product.name}</div>
+              <div>Price: {product.price}</div>
+              <div>Description: {product.description}</div>
+            </div>
           </div>
-        </div>
-      ))}
-      {/* CHANGE THEIR LAYOUT */}
+        ))}
+
       <div
         onClick={() => setActiveComponent("AddItems")}
         className="outletNavItem"
