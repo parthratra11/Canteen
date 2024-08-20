@@ -14,6 +14,10 @@ export default function RegistrationPage({ setShowReg }) {
   const navigate = useNavigate();
   let roll = "";
   let empid = "";
+  let number = "Roll";
+  if (role == "teacher") {
+    number = "Employee";
+  }
   function submitDetails(setShowReg) {
     if (role == "student") {
       roll = tempnum;
