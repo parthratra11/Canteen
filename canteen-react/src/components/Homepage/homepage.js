@@ -32,13 +32,11 @@ function NavigationBar({ cartItems, setCartItems }) {
   function CartBtn() {
     return <div>{`Cart (${cartItems.length})`}</div>;
   }
+
+  //* LOGOUT WORKING ?
   function handleLog() {
     localStorage.clear();
     navigate("/");
-  }
-  // TODO: LOGS OUT THE USER
-  function Logout() {
-    return <div>Log Out</div>;
   }
 
   return (

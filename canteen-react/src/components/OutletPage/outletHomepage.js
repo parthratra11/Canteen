@@ -7,23 +7,38 @@ import UpdateItems from "./updateItems";
 import AddItems from "./addItems";
 import DeleteItems from "./deleteItems";
 import ListOffers from "./listOffers";
+import Orders from "./orders";
 
-function Orders() {
-  // TODO: DISPLAYS PENDING DELIVERIES
-  function PendingDeliveries() {
-    return <div className="outletNavItemOrder">Pending Deliveries</div>;
-  }
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
 
-  // TODO: DISPLAYS COMPLETED DELIVERIES
-  function CompletedDeliveries() {
-    return <div className="outletNavItemOrder">Completed Deliveries</div>;
+function OutletHeader() {
+  //! NOT WORKING, FIX handleLog
+  // const navigate = useNavigate();
+
+  function handleLog() {
+    // const navigate = useNavigate();
+    // localStorage.clear();
+    // navigate("/");
   }
 
   return (
     <>
-      <div className="outletNavBar">
-        <PendingDeliveries />
-        <CompletedDeliveries />
+      <div className="navBar">
+        {/* NAVIGATION BAR CONTAINS GREET, BANNER, SUPPORT-MENU, CART, LOGOUT-BUTTON */}
+        <div className="main">
+          <div className="greet">Greetings Outlet</div>
+
+          <div className="rightmenue">
+            <div className="support">
+              {/* TODO */}
+              Support
+            </div>
+            <div className="logout" onClick={handleLog}>
+              <Button variant="Danger">Log Out</Button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -98,7 +113,7 @@ export default function OutletHomepage() {
 
   return (
     <>
-      <h1>Outlet Name</h1>
+      <OutletHeader />
 
       {/* DISPLAYS ALL THE ACTIONS THAT CAN BE PERFORMED BY THE OUTLET-MANAGER */}
       <div className="outletNavBar">
