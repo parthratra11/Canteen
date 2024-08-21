@@ -68,6 +68,8 @@ body {
   background-color: #34495e;
   padding: 10px 0;
   margin-top: 20px;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .outletsNavItem {
@@ -75,10 +77,23 @@ body {
   margin: 0 15px;
   cursor: pointer;
   font-size: 16px;
+  white-space: nowrap;
 }
 
 .outletsNavItem:hover {
   color: #3498db;
+}
+
+.outlets-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* This allows horizontal scrolling if there are too many outlets */
+}
+
+.navbar-nav .nav-link.active-outlet {
+  font-weight: bold;
+  color: #003366;
+  border-bottom: 2px solid #003366;
 }
 
 .menuItems {
@@ -93,9 +108,12 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.menuItemID {
-  font-size: 14px;
-  color: #95a5a6;
+.menuItemId {
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: gray;
+  margin-right: 10px;
 }
 
 .menuItemImage {
@@ -127,6 +145,18 @@ body {
 
 .menuItemOrder:hover {
   background-color: #2ecc71;
+}
+
+.menuContainer {
+  background-color: #f0f0f0; /* Light grey background */
+  padding: 20px; /* Optional: Add some padding */
+  border-radius: 5px; /* Optional: Rounded corners */
+}
+
+.homepage-button:hover {
+  background-color: #007bff; /* Primary color for hover effect */
+  color: white; /* Text color on hover */
+  border-color: #007bff; /* Border color on hover */
 }
 
 footer {

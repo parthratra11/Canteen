@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Cart from "../Cart/cart";
 import { useCart } from "../../context/cartContext";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Navbar, Nav, Container } from "react-bootstrap";
+
 // debugger
 // let user = JSON.parse(localStorage.getItem("user_info"));
 // console.log("ppppppppppppppp");
@@ -22,9 +25,7 @@ function NavigationBar({ cartItems, setCartItems }) {
 
   // TODO: OFFER AND ANNOUNCEMENTS BANNER TO BE IMPLEMENTED
   function BruceBanner() {
-    return <div>
-      {/* Banner */}
-      </div>;
+    return <div>{/* Banner */}</div>;
   }
 
   // REDIRECTS USER TO THE CART AND DISPLAYS THE NO. OF ITEMS IN CART
@@ -37,13 +38,7 @@ function NavigationBar({ cartItems, setCartItems }) {
   }
   // TODO: LOGS OUT THE USER
   function Logout() {
-    
-
-    return (
-      <div>
-       Log Out
-      </div>
-    );
+    return <div>Log Out</div>;
   }
 
   return (
@@ -68,7 +63,7 @@ function NavigationBar({ cartItems, setCartItems }) {
             <CartBtn />
           </div>
           <div className="logout" onClick={handleLog}>
-            <Logout />
+            <Button variant="Danger">Log Out</Button>
           </div>
         </div>
       </div>
@@ -76,21 +71,31 @@ function NavigationBar({ cartItems, setCartItems }) {
   );
 }
 
-// DISPLAYS ALL THE OUTLETS TO CHOOSE FROM
 function Outlets({ outlets, setActiveMenu }) {
+  const [activeOutlet, setActiveOutlet] = useState(1);
+
+  const handleClick = (outletId) => {
+    setActiveMenu(outletId);
+    setActiveOutlet(outletId);
+  };
+
   return (
     <>
-      <div className="outletsNavBar">
-        {outlets.map((outlet) => (
-          <div
-            onClick={() => setActiveMenu(outlet.id)}
-            className="outletsNavItem"
-            key={outlet.id}
-          >
-            {outlet.name}
-          </div>
-        ))}
-      </div>
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container className="d-flex flex-wrap-nowrap">
+          <Nav className="me-auto">
+            {outlets.map((outlet) => (
+              <Nav.Link
+                onClick={() => handleClick(outlet.id)}
+                key={outlet.id}
+                className={activeOutlet === outlet.id ? "active-outlet" : ""}
+              >
+                {outlet.name}
+              </Nav.Link>
+            ))}
+          </Nav>
+        </Container>
+      </Navbar>
     </>
   );
 }
@@ -113,36 +118,33 @@ function Menu({ outlets, activeMenu, cartItems, setCartItems }) {
 
   return (
     <>
-      {outlet.menu
-        .slice() // CREATES A COPY OF THE OUTLET MENU
-        .sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10)) //SORTS THE OUTLET MENU ON THE BASIS OF THE PRODUCT ID
-
-        // DISPLAYS ALL THE MENU ITEMS
-        .map((product) => (
-          <div key={product.id} className="menuItems">
-            <div className="menuItemID">{product.id}</div>
-
-            {/* IMPLEMENT THE PRODUCT IMAGE OPTION */}
-            <div className="menuItemImage">{/*Product Image Placeholder*/}</div>
-
-            <div className="menuItemDetails">
-              <div>Item: {product.name}</div>
-              <div>Price: {product.price}</div>
-              <div>Description: {product.description}</div>
-            </div>
-
-            {/* ADD TO CART BUTTON */}
+      <Container className="my-3 menuContainer">
+        {outlet.menu
+          .slice()
+          .sort((a, b) => a.id - b.id)
+          .map((product) => (
             <div
-              className="menuItemOrder"
-              onClick={() => {
-                addToCart(product);
-              }}
+              key={product.id}
+              className="menuItems d-flex align-items-center p-3 mb-3 bg-white rounded shadow-sm"
             >
-              <span>Add to </span>
-              <span>Cart</span>
+              <div className="menuItemId">{product.id}</div>
+              <div
+                className="menuItemImage bg-secondary rounded d-flex align-items-center justify-content-center"
+                style={{ width: "80px", height: "80px" }}
+              >
+                {/* Product Image Placeholder */}
+              </div>
+              <div className="menuItemDetails flex-grow-1 ms-3">
+                <div>Item: {product.name}</div>
+                <div>Price: {product.price}</div>
+                <div>Description: {product.description}</div>
+              </div>
+              <Button variant="success" onClick={() => addToCart(product)}>
+                Add to Cart
+              </Button>
             </div>
-          </div>
-        ))}
+          ))}
+      </Container>
     </>
   );
 }
