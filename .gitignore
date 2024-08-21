@@ -4,3 +4,4 @@
 /canteen-react/dist
 /canteen-react/node_modules
 /server/products/__pycache__
+/server/orders/__pycache__
