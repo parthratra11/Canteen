@@ -9,6 +9,7 @@ import OutletHomepage from "./components/outletPage/outletHomepage";
 import Cart from "./components/Cart/cart";
 import { CartProvider } from "./context/cartContext";
 import PaymentHomepage from "./components/PaymentPage/paymentPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // CREATING ROOT ELEMENT
 const container = document.getElementById("root");
@@ -80,5 +81,5 @@ function App() {
 }
 
 // RENDERING THE FIRST PAGE TO BE DISPLAYED
-// root.render(<App />);
-root.render(<OutletHomepage />);
+root.render(<App />);
+// root.render(<OutletHomepage />);

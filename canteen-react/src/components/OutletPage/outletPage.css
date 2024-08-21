@@ -46,7 +46,7 @@
   background-color: lightgray;
 }
 .outletNavItemOrder:hover {
-  background-color: lightgray;
+  background-color: lightgray !important;
 }
 
 .productId {

@@ -1,4 +1,3 @@
-
 h1 {
   text-align: center;
   color: #333;
@@ -6,7 +5,6 @@ h1 {
   font-size: 36px;
   font-weight: bold;
 }
-
 
 .cartNavigation {
   background-color: #007bff;
@@ -22,11 +20,9 @@ h1 {
   transition: background-color 0.3s;
 }
 
-
 .cartNavigation:hover {
   background-color: #0056b3;
 }
-
 
 .cartNavigation:last-child {
   background-color: #6c757d;
@@ -36,11 +32,34 @@ h1 {
   background-color: #5a6268;
 }
 
-
 .noItemsMessage {
   text-align: center;
   color: #777;
   font-size: 24px;
   margin-top: 40px;
   font-weight: bold;
+}
+
+.cartHeaderContainer {
+  background-color: #003366; /* Dark blue background */
+  padding: 10px 0; /* Add vertical padding */
+  text-align: center; /* Center align text */
+  margin-bottom: 20px; /* Space below the header */
+  border-radius: 5px; /* Adjust this value for more or less rounding */
+  overflow: hidden;
+}
+
+.cartHeaderContainerEmpty {
+  background-color: #dc3545; /* Dark blue background */
+  padding: 10px 0; /* Add vertical padding */
+  text-align: center; /* Center align text */
+  margin-bottom: 20px; /* Space below the header */
+  border-radius: 5px; /* Adjust this value for more or less rounding */
+  overflow: hidden;
+}
+
+.cartHeader {
+  color: white; /* White text color */
+  font-size: 1.5rem; /* Adjust font size */
+  margin: 0; /* Remove default margin */
 }
