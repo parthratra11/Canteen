@@ -43,3 +43,13 @@ class productLogic:
             return jsonify({'status':'success'}),200
         except:
             return jsonify({'status':'fail','message':'failed while commititing query'}),401
+        
+    def getProduct(self,outletId):
+        query = f"select productid, productname, productdescription, productprice from products join outlet on (products.outletid = outlet.outletid) where products.outletid = {outletId}"
+        try:
+            self.cur.execute(query)
+            product_info = self.cur.fetchall()
+            return jsonify({'status':'success','product_info': product_info})
+        except:
+            return jsonify({'status': 'fail', 'message': f'something went wrong while retreiving products of outletId {outletId}'}), 401
+

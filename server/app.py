@@ -6,6 +6,7 @@ CORS(app)
 import login.loginController
 import registration.registrationController
 import products.productsController
+import orders.ordersController
 
 
 @app.route("/")
