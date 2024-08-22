@@ -81,6 +81,10 @@ function App() {
 }
 
 // RENDERING THE FIRST PAGE TO BE DISPLAYED
+
 root.render(<App />);
 // root.render(<OutletHomepage />);
 // 
+            
+            
+

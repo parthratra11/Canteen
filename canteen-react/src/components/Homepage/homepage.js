@@ -216,14 +216,18 @@ function NavigationBar({ cartItems, setCartItems }) {
     return <div>{`Cart (${cartItems.length})`}</div>;
   }
 
+
   function handleLog() {
     localStorage.clear();
     navigate("/");
   }
 
+
   function Logout() {
     return <div>Log Out</div>;
   }
+
+
 
   return (
     <div className="navBar">
