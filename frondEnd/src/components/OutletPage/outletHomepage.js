@@ -1,47 +1,87 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./outletPage.css";
 import { useNavigate } from "react-router-dom";
-import { use } from "react";
 import ViewItems from "./viewItems";
 import UpdateItems from "./updateItems";
 import AddItems from "./addItems";
 import DeleteItems from "./deleteItems";
-import ListOffers from "./listOffers";
+import Orders from "./orders";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
 
-// TODO: DISPLAYS PENDING DELIVERIES
-function PendingDeliveries() {
-  return <div>Pending Deliveries Clicked</div>;
-}
+function OutletHeader() {
+  // const navigate = useNavigate();
+  function handleLog() {
+    // localStorage.clear();
+    // navigate("/");
+  }
 
-// TODO: DISPLAYS COMPLETED DELIVERIES
-function CompletedDeliveries() {
-  return <div>Completed Deliveries Clicked</div>;
+  return (
+    <>
+      <div className="navBar">
+        <div className="main">
+          <div className="greet">Greetings Outlet</div>
+          <div className="rightmenue">
+            <div className="support">Support</div>
+            <div className="logout" onClick={handleLog}>
+              <Button variant="danger">Log Out</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default function OutletHomepage() {
-  const [activeComponent, setActiveComponent] = useState("UpdateItems");
+  const [activeComponent, setActiveComponent] = useState("ViewItems");
+  const [requestedProdId, setRequestedProdId] = useState("");
+  const [products, setProducts] = useState([]);
+  const outletId = 1;
 
-  // TEMPORARY VALUES FOR ITEMS IN THE MENU OF THE OUTLET
-  const [products, setProducts] = useState([
-    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
-    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
-  ]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/getproductinfo/${outletId}`
+        );
+        const data = await response.json();
 
-  // RENDERS THE PAGE OF THE SELECTED FEATURE
+        if (data.status === "success") {
+          const formattedProducts = data.product_info.map((product) => ({
+            id: product.productid,
+            name: product.productname,
+            price: product.productprice,
+            description: product.productdescription,
+          }));
+          setProducts(formattedProducts);
+        } else {
+          console.error("Failed to fetch products:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [outletId]);
+
   const renderComponent = () => {
     switch (activeComponent) {
-      case "PendingDeliveries":
-        return <PendingDeliveries />;
-      case "CompletedDeliveries":
-        return <CompletedDeliveries />;
+      case "Orders":
+        return <Orders />;
+
       case "ViewItems":
         return (
           <ViewItems
             setActiveComponent={setActiveComponent}
             products={products}
             setProducts={setProducts}
+            requestedProdId={requestedProdId}
+            setRequestedProdId={setRequestedProdId}
           />
         );
+
       case "AddItems":
         return (
           <AddItems
@@ -50,24 +90,29 @@ export default function OutletHomepage() {
             setProducts={setProducts}
           />
         );
+
       case "UpdateItems":
         return (
           <UpdateItems
             setActiveComponent={setActiveComponent}
             products={products}
             setProducts={setProducts}
+            requestedProdId={requestedProdId}
+            setRequestedProdId={setRequestedProdId}
           />
         );
+
       case "DeleteItems":
         return (
           <DeleteItems
             setActiveComponent={setActiveComponent}
             products={products}
             setProducts={setProducts}
+            requestedProdId={requestedProdId}
+            setRequestedProdId={setRequestedProdId}
           />
         );
-      case "ListOffers":
-        return <ListOffers />;
+
       default:
         return null;
     }
@@ -75,67 +120,27 @@ export default function OutletHomepage() {
 
   return (
     <>
-      <h1>Outlet Name</h1>
-
-      {/* DISPLAYS ALL THE ACTIONS THAT CAN BE PERFORMED BY THE OUTLET-MANAGER */}
+      <OutletHeader />
       <div className="outletNavBar">
         <button
           className="outletNavItem"
-          onClick={() => setActiveComponent("PendingDeliveries")} // CHANGES THE COMPONENT TO BE DISPLAYED
+          onClick={() => setActiveComponent("Orders")}
         >
-          <span>Pending</span>
-          <span>Deliveries</span>
+          <span>Orders</span>
         </button>
-
-        <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("CompletedDeliveries")}
-        >
-          <span>Completed</span>
-          <span>Deliveries</span>
-        </button>
-
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ViewItems")}
         >
-          <span>View</span>
-          <span>Menu</span>
+          View Menu
         </button>
-
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("AddItems")}
         >
-          <span>Add</span>
-          <span>Items</span>
-        </button>
-
-        <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("UpdateItems")}
-        >
-          <span>Update</span>
-          <span>Items</span>
-        </button>
-
-        <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("DeleteItems")}
-        >
-          <span>Delete</span>
-          <span>Items</span>
-        </button>
-
-        <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("ListOffers")}
-        >
-          <span>List</span>
-          <span>Offers</span>
+          Add Items
         </button>
       </div>
-
       <div>{renderComponent()}</div>
     </>
   );

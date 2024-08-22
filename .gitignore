@@ -1,7 +1,7 @@
 /server/__pycache__
 /server/login/__pycache__
 /server/registration/__pycache__
-/canteen-react/dist
-/canteen-react/node_modules
+/frontEnd/dist
+/frontEnd/node_modules
 /server/products/__pycache__
 /server/orders/__pycache__
