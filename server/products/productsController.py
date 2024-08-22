@@ -29,6 +29,10 @@ def productUpdateControllerFunction():
 
 @app.route("/deleteproduct/<int:productid>",methods=['DELETE'])
 def productDeleteControllerFunction(productid):
-    print(type(productid))
+    # print(type(productid))
     # productId = data.get('productId')
     return productLogicObj.productDelete(productid)
+
+@app.route("/getproductinfo/<int:outletid>",methods = ['GET'])
+def productInfoControllerFunction(outletid):
+    return productLogicObj.getProduct(outletid)
