@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ViewItems from "./viewItems";
 
 export default function UpdateItems({
   setActiveComponent,
   products,
   setProducts,
+  requestedProdId,
+  setRequestedProdId,
 }) {
-  const [requestedProdId, setRequestedProdId] = useState("");
-  const [showUpdateItems, setShowUpdateItems] = useState(false);
-  const [showUpdateConfirm, setShowUpdateConfirm] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showUpdateItems, setShowUpdateItems] = useState(true);
+  const [showUpdateForm, setShowUpdateForm] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // FINDS THE ITEM TO BE UPDATED
   function UpdateItemsRender() {
@@ -26,47 +25,13 @@ export default function UpdateItems({
             <div className="viewItemID">{foundProduct.id}</div>
             <div className="viewItemImage">Product Image</div>
             <div className="viewItemDetails">
-              <div>{foundProduct.name}</div>
-              <div>{foundProduct.price}</div>
-              <div>{foundProduct.description}</div>
+              <div>{`Product Name : ${foundProduct.name}`}</div>
+              <div>{`Product Price : ${foundProduct.price}`}</div>
+              <div>{`Product Description : ${foundProduct.description}`}</div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-
-  // DISPLAYS THE UPDATE-ITEM-VALUES FORM WHEN USER CLICKS YES
-  function UpdateItemsConfirm() {
-    const handleUptConfirm = (event) => {
-      event.preventDefault();
-      setShowUpdateConfirm(false);
-      setShowUpdateForm(true);
-    };
-
-    return (
-      <>
-        <div className="delConfirmDiv">
-          <h4>Are you sure you want to Update this item ?</h4>
-
-          {/* DISPLAYS THE UPDATE FORM */}
-          <button className="delConfirmBtn" onClick={handleUptConfirm}>
-            Yes
-          </button>
-
-          {/* REDIRECTS BACK TO THE INITIAL CHECK-UPDATE-ITEM FORM WHEN USER CLICKS NO*/}
-          <button
-            onClick={() => {
-              setShowUpdateItems(false);
-              setShowUpdateConfirm(false);
-              setRequestedProdId("");
-            }}
-            className="delConfirmBtn"
-          >
-            No
-          </button>
-        </div>
-      </>
     );
   }
 
@@ -75,31 +40,60 @@ export default function UpdateItems({
     const [updateItemPrice, setUpdateItemPrice] = useState("");
     const [updateItemDescription, setUpdateItemDescription] = useState("");
 
-    // UPDATES THE SELECTED ITEM WITH THE NEW VALUES
-    function updateItem() {
-      setProducts((prevProducts) => {
-        return prevProducts.map((product) =>
-          // TODO: IMPLEMENT === INSTEAD OF ==
-          product.id == requestedProdId
-            ? {
-                ...product,
-                name: updateItemName,
-                price: updateItemPrice,
-                description: updateItemDescription,
-              }
-            : product
-        );
-      });
+    // UPDATES THE SELECTED ITEM BY MAKING A PUT REQUEST TO THE API
+    async function updateItem() {
+      setLoading(true);
 
-      // SETS THE STATE VALUES BACK TO DEFAULT
-      setUpdateItemName("");
-      setUpdateItemPrice("");
-      setUpdateItemDescription("");
+      const updatedProductData = {
+        productId: requestedProdId,
+        productName: updateItemName,
+        productDescription: updateItemDescription,
+        productPrice: updateItemPrice,
+        outletId: "1", // You can modify this to be dynamic
+      };
 
-      // REDIRECTS BACK TO THE CHECK-UPDATE-ITEM FORM
-      setRequestedProdId("");
-      setShowUpdateForm(false);
-      setShowUpdateItems(false);
+      try {
+        const response = await fetch("http://127.0.0.1:5000/updateproduct", {
+          method: "PUT",
+          mode:'cors',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedProductData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("Product updated successfully!");
+
+          // UPDATES THE PRODUCT IN THE LOCAL STATE
+          setProducts((prevProducts) => {
+            return prevProducts.map((product) =>
+              product.id == requestedProdId
+                ? {
+                    ...product,
+                    name: updateItemName,
+                    price: updateItemPrice,
+                    description: updateItemDescription,
+                  }
+                : product
+            );
+          });
+
+          // SETS THE FORM VALUES BACK TO DEFAULT
+          setUpdateItemName("");
+          setUpdateItemPrice("");
+          setUpdateItemDescription("");
+        } else {
+          alert(result.message || "Failed to update the product.");
+        }
+      } catch (error) {
+        alert("Error occurred while updating the product.");
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     const handleUptSubmit = (event) => {
@@ -158,67 +152,28 @@ export default function UpdateItems({
         </form>
 
         {/* SUBMITS THE VALUE FOR FURTHER OPERATIONS */}
-        <button onClick={handleUptSubmit}>Submit</button>
-
-        {/* REDIRECTS BACK TO THE MENU */}
-        <div
-          className="outletNavItem"
-          onClick={() => setActiveComponent("ViewItems")}
-        >
-          View Menu
-        </div>
+        <button onClick={handleUptSubmit} disabled={loading}>
+          {loading ? "Updating..." : "Submit"}
+        </button>
       </div>
     );
   }
 
-  // CHECKS IF THE REQUESTED ITEM TO BE UPDATED EXISTS OR NOT
-  function checkProductID() {
-    if (products.some((product) => product.id == requestedProdId)) {
-      setShowUpdateItems(true);
-      setShowUpdateConfirm(true);
-    } else {
-      alert("Product not found !");
-    }
+  function redirectView() {
+    setShowUpdateItems(false);
+    setShowUpdateForm(false);
+    setActiveComponent("ViewItems");
+    setRequestedProdId("");
   }
-
-  const handleConfirm = (event) => {
-    event.preventDefault();
-    checkProductID();
-  };
 
   return (
     <>
-      {/* DISPLAYS CHECK-UPDATE-ITEM FORM */}
-      {!showUpdateItems && (
-        <>
-          <div className="handleConfirmDetailsDiv">
-            <form onSubmit={handleConfirm}>
-              <input
-                className="handleConfirmDetails"
-                value={requestedProdId}
-                placeholder="Enter the ID of the Product to be updated"
-                onChange={(e) => {
-                  setRequestedProdId(e.target.value);
-                }}
-              ></input>
-              <button className="handleConfirmDetailsBtn" type="submit">
-                Confirm
-              </button>
-            </form>
-          </div>
-        </>
-      )}
-
       {/* DISPLAYS THE DIFFERENT DIVs / FORMs WITH THE FLOW OF SUBMISSIONS */}
       {showUpdateItems && <UpdateItemsRender />}
-      {showUpdateConfirm && <UpdateItemsConfirm />}
       {showUpdateForm && <UpdateItemsForm />}
 
       {/* REDIRECTS BACK TO THE MENU */}
-      <div
-        className="outletNavItem"
-        onClick={() => setActiveComponent("ViewItems")}
-      >
+      <div className="outletNavItem" onClick={() => redirectView()}>
         View Menu
       </div>
     </>

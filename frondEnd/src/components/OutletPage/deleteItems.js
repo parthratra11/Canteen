@@ -1,29 +1,59 @@
+
 import { useState } from "react";
 
 export default function DeleteItems({
   setActiveComponent,
   products,
   setProducts,
+  requestedProdId,
+  setRequestedProdId,
 }) {
-  const [requestedProdId, setRequestedProdId] = useState("");
-  const [showDeleteItems, setShowDeleteItems] = useState(false);
+  const [showDeleteItems, setShowDeleteItems] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  function removeItem() {
-    // TODO: IMPLEMENT === INSTEAD OF ==
-    // REMOVES THE ITEM FROM THE MENU
+  // Function to send the DELETE request to the backend
+  async function removeItemFromBackend() {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:5000/deleteproduct/${requestedProdId}`,
+        {
+          method: "DELETE",
+          mode:"cors"
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Product deleted successfully!");
+        removeItemFromState();
+      } else {
+        alert(result.message || "Failed to delete the product.");
+      }
+    } catch (error) {
+      console.error("Error occurred while deleting the product:", error);
+      alert("Error occurred while deleting the product.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Function to remove the item from the state after successful deletion
+  function removeItemFromState() {
     const updatedProducts = products.filter(
       (product) => product.id != requestedProdId
     );
     setProducts(updatedProducts);
 
-    // RESTORE THE STATE VARIABLES TO DEFAULT
+    // Restore the state variables to default
     setRequestedProdId("");
     setShowDeleteItems(false);
+    setActiveComponent("ViewItems");
   }
 
-  // DISPLAYS THE ITEM SELECTED BY USER FOR DELETION
+  // Displays the item selected by user for deletion
   function DeleteItemsRender() {
-    // FINDS THE ITEM SELECTED BY THE USER
     const foundProduct = products.find(
       (product) => product.id == requestedProdId
     );
@@ -35,9 +65,9 @@ export default function DeleteItems({
             <div className="viewItemID">{foundProduct.id}</div>
             <div className="viewItemImage">Product Image</div>
             <div className="viewItemDetails">
-              <div>{foundProduct.name}</div>
-              <div>{foundProduct.price}</div>
-              <div>{foundProduct.description}</div>
+              <div>{`Product Name : ${foundProduct.name}`}</div>
+              <div>{`Product Price : ${foundProduct.price}`}</div>
+              <div>{`Product Description : ${foundProduct.description}`}</div>
             </div>
           </div>
         </div>
@@ -45,28 +75,29 @@ export default function DeleteItems({
     );
   }
 
-  // CONFIRMS DELETION
+  // Confirms deletion
   function DeleteItemsConfirm() {
     const handleDltConfirm = (event) => {
       event.preventDefault();
-      removeItem();
+      removeItemFromBackend(); // Calls the backend API to delete the item
     };
 
     return (
       <>
         <div className="delConfirmDiv">
-          <h4>Are you sure you want to delete this item ?</h4>
+          <h4>Are you sure you want to delete this item?</h4>
 
-          {/* DELETES ITEM ON CLICKING YES */}
-          <button className="delConfirmBtn" onClick={handleDltConfirm}>
-            Yes
+          {/* Deletes item on clicking Yes */}
+          <button className="delConfirmBtn" onClick={handleDltConfirm} disabled={loading}>
+            {loading ? "Deleting..." : "Yes"}
           </button>
 
-          {/* REDIRECTS BACK TO THE DELETE-ITEM PAGE ON CLICKING NO */}
+          {/* Redirects back to the menu on clicking No */}
           <button
             onClick={() => {
               setShowDeleteItems(false);
               setRequestedProdId("");
+              setActiveComponent("ViewItems");
             }}
             className="delConfirmBtn"
           >
@@ -77,61 +108,23 @@ export default function DeleteItems({
     );
   }
 
-  // CHECKS IF THE REQUESTED ITEM ID FOR THE ITEM TO BE DELETED, EXISTS OR NOT
-  function checkProductID() {
-    // TODO: IMPLEMENT === INSTEAD OF ==
-    if (products.some((product) => product.id == requestedProdId)) {
-      setShowDeleteItems(true);
-    } else {
-      alert("Product not found !");
-    }
+  function redirectView() {
+    setShowDeleteItems(false);
+    setActiveComponent("ViewItems");
+    setRequestedProdId("");
   }
-
-  const handleConfirm = (event) => {
-    event.preventDefault();
-    checkProductID();
-  };
 
   return (
     <>
-      {/* DISPLAYS THE DELETE-ITEM FORM */}
-      {!showDeleteItems && (
-        <>
-          <div className="handleConfirmDetailsDiv">
-            <form onSubmit={handleConfirm}>
-              <input
-                className="handleConfirmDetails"
-                value={requestedProdId}
-                placeholder="Enter the ID of the Product to be Deleted"
-                onChange={(e) => {
-                  setRequestedProdId(e.target.value);
-                }}
-              ></input>
-
-              {/* BUTTON TO SUBMIT DELETE FORM */}
-              <button
-                className="handleConfirmDetailsBtn"
-                type="submit"
-                onClick={handleConfirm}
-              >
-                Confirm
-              </button>
-            </form>
-          </div>
-        </>
-      )}
-
-      {/* DISPLAYS ITEM-TO-BE-DELETED AND CONFIRM-DELETETION DIV, WHEN THE ITEM IS FOUND */}
+      {/* Displays item-to-be-deleted and confirm-deletion div, when the item is found */}
       {showDeleteItems && <DeleteItemsRender />}
       {showDeleteItems && <DeleteItemsConfirm />}
 
-      {/* REDIRECTS BACK TO THE MENU */}
-      <div
-        className="outletNavItem"
-        onClick={() => setActiveComponent("ViewItems")}
-      >
+      {/* Redirects back to the menu */}
+      <div className="outletNavItem" onClick={() => redirectView()}>
         View Menu
       </div>
     </>
   );
 }
+
