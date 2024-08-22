@@ -21,3 +21,21 @@ create table products
     productPrice int not null,
     outletId int not null,
     foreign key(outletId) references outlet(outletId));
+
+create table orders
+    (orderId int primary key auto_increment,
+    userId int not null,
+    outletId int not null,
+    orderTime datetime not null,
+    Amount int not null,
+    paymentId varchar(30), 
+    delivered char(4) default false,
+    foreign key(userId) references user(Id),
+    foreign key(outletId) references outlet(outletId));
+
+create table ordered_items
+    (orderedItemsId int primary key auto_increment,
+    orderId int not null,
+    productId int not null,
+    foreign key(orderId) references orders(orderId),
+    foreign key(productId) references products(productId));
