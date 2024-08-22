@@ -1,7 +1,9 @@
-.paymentNavigation {
-  border: 1px solid black;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Custom styles */
+.payment-gateway-placeholder {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+#payment{
+  max-width: 500px;
 }
