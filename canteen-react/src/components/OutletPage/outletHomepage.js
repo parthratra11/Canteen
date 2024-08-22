@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import "./outletPage.css";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +42,9 @@ export default function OutletHomepage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/getproductinfo/${outletId}`);
+        const response = await fetch(
+          `http://localhost:5000/getproductinfo/${outletId}`
+        );
         const data = await response.json();
 
         if (data.status === "success") {
