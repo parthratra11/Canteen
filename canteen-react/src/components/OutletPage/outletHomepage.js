@@ -1,41 +1,31 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import "./outletPage.css";
 import { useNavigate } from "react-router-dom";
-import { use } from "react";
 import ViewItems from "./viewItems";
 import UpdateItems from "./updateItems";
 import AddItems from "./addItems";
 import DeleteItems from "./deleteItems";
-import ListOffers from "./listOffers";
 import Orders from "./orders";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 
 function OutletHeader() {
-  //! NOT WORKING, FIX handleLog
-  // const navigate = useNavigate();
-
+  const navigate = useNavigate();
   function handleLog() {
-    // const navigate = useNavigate();
-    // localStorage.clear();
-    // navigate("/");
+    localStorage.clear();
+    navigate("/");
   }
 
   return (
     <>
       <div className="navBar">
-        {/* NAVIGATION BAR CONTAINS GREET, BANNER, SUPPORT-MENU, CART, LOGOUT-BUTTON */}
         <div className="main">
           <div className="greet">Greetings Outlet</div>
-
           <div className="rightmenue">
-            <div className="support">
-              {/* TODO */}
-              Support
-            </div>
+            <div className="support">Support</div>
             <div className="logout" onClick={handleLog}>
-              <Button variant="Danger">Log Out</Button>
+              <Button variant="danger">Log Out</Button>
             </div>
           </div>
         </div>
@@ -46,16 +36,35 @@ function OutletHeader() {
 
 export default function OutletHomepage() {
   const [activeComponent, setActiveComponent] = useState("ViewItems");
-
   const [requestedProdId, setRequestedProdId] = useState("");
+  const [products, setProducts] = useState([]);
+  const outletId = 1;
 
-  // TEMPORARY VALUES FOR ITEMS IN THE MENU OF THE OUTLET
-  const [products, setProducts] = useState([
-    { id: 1, name: "Product 1", price: 10, description: "Description 1" },
-    { id: 2, name: "Product 2", price: 20, description: "Description 2" },
-  ]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/getproductinfo/${outletId}`);
+        const data = await response.json();
 
-  // RENDERS THE PAGE OF THE SELECTED FEATURE
+        if (data.status === "success") {
+          const formattedProducts = data.product_info.map((product) => ({
+            id: product.productid,
+            name: product.productname,
+            price: product.productprice,
+            description: product.productdescription,
+          }));
+          setProducts(formattedProducts);
+        } else {
+          console.error("Failed to fetch products:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [outletId]);
+
   const renderComponent = () => {
     switch (activeComponent) {
       case "Orders":
@@ -103,9 +112,6 @@ export default function OutletHomepage() {
           />
         );
 
-      // case "ListOffers":
-      //   return <ListOffers />;
-
       default:
         return null;
     }
@@ -114,39 +120,26 @@ export default function OutletHomepage() {
   return (
     <>
       <OutletHeader />
-
-      {/* DISPLAYS ALL THE ACTIONS THAT CAN BE PERFORMED BY THE OUTLET-MANAGER */}
       <div className="outletNavBar">
         <button
           className="outletNavItem"
-          onClick={() => setActiveComponent("Orders")} // CHANGES THE COMPONENT TO BE DISPLAYED
+          onClick={() => setActiveComponent("Orders")}
         >
           <span>Orders</span>
         </button>
-
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("ViewItems")}
         >
           View Menu
         </button>
-
         <button
           className="outletNavItem"
           onClick={() => setActiveComponent("AddItems")}
         >
           Add Items
         </button>
-
-        {/* <button
-          className="outletNavItem"
-          onClick={() => setActiveComponent("ListOffers")}
-        >
-          <span>List</span>
-          <span>Offers</span>
-        </button> */}
       </div>
-
       <div>{renderComponent()}</div>
     </>
   );
