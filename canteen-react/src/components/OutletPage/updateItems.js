@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ViewItems from "./viewItems";
 
 export default function UpdateItems({
   setActiveComponent,
@@ -9,10 +7,9 @@ export default function UpdateItems({
   requestedProdId,
   setRequestedProdId,
 }) {
-  // const [requestedProdId, setRequestedProdId] = useState("");
   const [showUpdateItems, setShowUpdateItems] = useState(true);
-  // const [showUpdateConfirm, setShowUpdateConfirm] = useState(false); //! NOT REQUIRED ANYMORE
   const [showUpdateForm, setShowUpdateForm] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // FINDS THE ITEM TO BE UPDATED
   function UpdateItemsRender() {
@@ -43,26 +40,60 @@ export default function UpdateItems({
     const [updateItemPrice, setUpdateItemPrice] = useState("");
     const [updateItemDescription, setUpdateItemDescription] = useState("");
 
-    // UPDATES THE SELECTED ITEM WITH THE NEW VALUES
-    function updateItem() {
-      setProducts((prevProducts) => {
-        return prevProducts.map((product) =>
-          // TODO: IMPLEMENT === INSTEAD OF ==
-          product.id == requestedProdId
-            ? {
-                ...product,
-                name: updateItemName,
-                price: updateItemPrice,
-                description: updateItemDescription,
-              }
-            : product
-        );
-      });
+    // UPDATES THE SELECTED ITEM BY MAKING A PUT REQUEST TO THE API
+    async function updateItem() {
+      setLoading(true);
 
-      // SETS THE STATE VALUES BACK TO DEFAULT
-      setUpdateItemName("");
-      setUpdateItemPrice("");
-      setUpdateItemDescription("");
+      const updatedProductData = {
+        productId: requestedProdId,
+        productName: updateItemName,
+        productDescription: updateItemDescription,
+        productPrice: updateItemPrice,
+        outletId: "1", // You can modify this to be dynamic
+      };
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/updateproduct", {
+          method: "PUT",
+          mode:'cors',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedProductData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("Product updated successfully!");
+
+          // UPDATES THE PRODUCT IN THE LOCAL STATE
+          setProducts((prevProducts) => {
+            return prevProducts.map((product) =>
+              product.id == requestedProdId
+                ? {
+                    ...product,
+                    name: updateItemName,
+                    price: updateItemPrice,
+                    description: updateItemDescription,
+                  }
+                : product
+            );
+          });
+
+          // SETS THE FORM VALUES BACK TO DEFAULT
+          setUpdateItemName("");
+          setUpdateItemPrice("");
+          setUpdateItemDescription("");
+        } else {
+          alert(result.message || "Failed to update the product.");
+        }
+      } catch (error) {
+        alert("Error occurred while updating the product.");
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     const handleUptSubmit = (event) => {
@@ -121,7 +152,9 @@ export default function UpdateItems({
         </form>
 
         {/* SUBMITS THE VALUE FOR FURTHER OPERATIONS */}
-        <button onClick={handleUptSubmit}>Submit</button>
+        <button onClick={handleUptSubmit} disabled={loading}>
+          {loading ? "Updating..." : "Submit"}
+        </button>
       </div>
     );
   }
